@@ -1,0 +1,265 @@
+[
+  {
+    "id": "midas",
+    "slide_num": 4,
+    "name": "MIDAS",
+    "subtitle": "O TOQUE DE OURO QUE FALTAVA NA SUA LAVOURA",
+    "category": "Linha Solo",
+    "category_slug": "solo",
+    "description": "Fertilizante para nutrição de enxofre via solo com alta eficiência, apresentando disponibilização gradual do sulfato, atendendo a exigência crescente do nutriente ao longo do ciclo da cultura, reduzindo suas perdas e aumentando o teor do solo.",
+    "guarantees": "S: 90%",
+    "benefits": [
+      "Uniformidade de aplicação, qualidade de dispersão e rendimento operacional.",
+      "Liberação gradual de sulfato, acompanhando a exigência das culturas.",
+      "Nutrição de safra e construção de perfil de solo.",
+      "Alta concentração de enxofre elementar (90%)."
+    ],
+    "dosages": [
+      {
+        "culture": "Café",
+        "dose": "20 a 60 kg/ha",
+        "recommendation": "Aplicação em pós-florada ou na fase de granação."
+      },
+      {
+        "culture": "Cana-de-açúcar",
+        "dose": "20 a 60 kg/ha",
+        "recommendation": "No plantio ou na soqueira."
+      },
+      {
+        "culture": "Milho e Soja",
+        "dose": "20 a 60 kg/ha",
+        "recommendation": "No sulco de plantio ou a lanço em pré-semeadura."
+      },
+      {
+        "culture": "Frutíferas e Hortaliças",
+        "dose": "20 a 60 kg/ha",
+        "recommendation": "Conforme a exigência nutricional da cultura."
+      }
+    ],
+    "packshot": "packshot_midas.png"
+  },
+  {
+    "id": "midas-plus",
+    "slide_num": 5,
+    "name": "MIDAS+",
+    "subtitle": "ENXOFRE E MICRONUTRIENTES NO MESMO GRÂNULO",
+    "category": "Linha Solo",
+    "category_slug": "solo",
+    "description": "Fertilizante concentrado e de liberação gradual de Boro (B), Cobre (Cu), Manganês (Mn), Zinco (Zn) e Enxofre (S), com fornecimento contínuo ao longo do ciclo de crescimento das culturas, reduzindo perdas e aumentando os níveis no solo.",
+    "guarantees": "S: 80% - B: 1% - Zn: 2% - Cu: 0,5%",
+    "benefits": [
+      "Fornecimento contínuo de enxofre e micronutrientes no mesmo grânulo.",
+      "Redução de perdas por lixiviação através de liberação gradual.",
+      "Uniformidade de distribuição em área total.",
+      "Alta sinergia nutricional entre os elementos essenciais."
+    ],
+    "dosages": [
+      {
+        "culture": "Café e Frutíferas",
+        "dose": "20 a 60 kg/ha",
+        "recommendation": "Aplicação no início do período chuvoso ou vegetativo."
+      },
+      {
+        "culture": "Cana-de-açúcar",
+        "dose": "20 a 60 kg/ha",
+        "recommendation": "Na quebra-lombo ou junto com adubação de cobertura."
+      },
+      {
+        "culture": "Grãos (Soja, Milho)",
+        "dose": "20 a 60 kg/ha",
+        "recommendation": "A lanço ou no sulco junto com o formulado NPK."
+      }
+    ],
+    "packshot": "packshot_midas_plus.png"
+  },
+  {
+    "id": "nitro-support",
+    "slide_num": 7,
+    "name": "NITRO SUPPORT",
+    "subtitle": "O SEGURO DA SUA LAVOURA",
+    "category": "Fisiológicos",
+    "category_slug": "fisiologicos",
+    "description": "É a solução completa de nutrição e fisiologia para TS e sulco de plantio de leguminosas, que promove rápida germinação, enraizamento profundo e fixação biológica de nitrogênio desde os primeiros dias.",
+    "guarantees": "Co: 1,5% - Mo: 10% - Complexos Fisiológicos",
+    "benefits": [
+      "Padronização de estande e estabelecimento inicial vigoroso.",
+      "Estímulo ao enraizamento primário e secundário.",
+      "Maior nodulação e eficiência da FBN (Fixação Biológica de Nitrogênio).",
+      "Segurança e compatibilidade com inoculantes e fungicidas químicos."
+    ],
+    "dosages": [
+      {
+        "culture": "Soja e Feijão",
+        "dose": "100 a 150 mL / 100 kg de semente",
+        "recommendation": "Tratamento de sementes antes do plantio."
+      },
+      {
+        "culture": "Milho e Sorgo",
+        "dose": "150 a 200 mL / 100 kg de semente",
+        "recommendation": "Tratamento de sementes industrial ou on-farm."
+      },
+      {
+        "culture": "Sulco de Plantio",
+        "dose": "200 a 400 mL/ha",
+        "recommendation": "Aplicação no sulco junto ao plantio."
+      }
+    ],
+    "packshot": "packshot_nitro_support.png"
+  },
+  {
+    "id": "sustent",
+    "slide_num": 8,
+    "name": "SUSTENT",
+    "subtitle": "O ALICERCE PARA ALTAS PRODUTIVIDADES",
+    "category": "Fisiológicos",
+    "category_slug": "fisiologicos",
+    "description": "Solução que maximiza a performance fisiológica e nutricional das plantas. Atua em processos essenciais como o metabolismo do nitrogênio, FBN e fotossíntese, potencializando a produtividade.",
+    "guarantees": "P2O5: 5% - K2O: 3,2% - Mg: 1,5% - S: 1,9% - Co: 1% - Cu: 0,1% - Mo: 10% - Mn: 2,5% - Ni: 2% - Zn: 1,5% | Solubilidade: 450 g/L",
+    "benefits": [
+      "Aumento da produtividade e aproveitamento de Nitrogênio pelas culturas.",
+      "Potencialização da Fixação Biológica de Nitrogênio (FBN).",
+      "Manutenção das folhas verdes e ativas por mais tempo (efeito stay-green).",
+      "Comodidade e segurança de uso com defensivos químicos e biológicos."
+    ],
+    "dosages": [
+      {
+        "culture": "Café",
+        "dose": "0,3 a 0,4 kg/ha",
+        "recommendation": "2 a 3 aplicações em pós-florada, expansão e granação."
+      },
+      {
+        "culture": "Cana-de-açúcar",
+        "dose": "0,4 a 0,5 kg/ha",
+        "recommendation": "1 a 2 aplicações no máximo crescimento vegetativo."
+      },
+      {
+        "culture": "Soja e Feijão",
+        "dose": "0,2 a 0,3 kg/ha",
+        "recommendation": "Aplicação foliar entre V3 e V5."
+      },
+      {
+        "culture": "Milho e Arroz",
+        "dose": "0,2 a 0,3 kg/ha",
+        "recommendation": "Aplicação foliar aos 30 DAE."
+      },
+      {
+        "culture": "Frutíferas e Hortaliças",
+        "dose": "0,2 a 0,5 kg/ha",
+        "recommendation": "2 a 3 aplicações em pré e pós-florada."
+      }
+    ],
+    "packshot": "packshot_sustent.png"
+  },
+  {
+    "id": "linha-compat",
+    "slide_num": 10,
+    "name": "LINHA COMPAT",
+    "subtitle": "MÁXIMA SEGURANÇA E EFICIÊNCIA NA NUTRIÇÃO FOLIAR",
+    "category": "Nutrição Foliar Quelatizada",
+    "category_slug": "foliar",
+    "description": "A Linha Compat foi desenvolvida para proporcionar uma nutrição foliar de alto desempenho através de micronutrientes 100% quelatizados com EDTA. Garante máxima eficiência na absorção dos nutrientes, além de estabilidade total nas caldas.",
+    "guarantees": "4 Formulações Quelatizadas: Compat Manganês (Mn 12%), Compat Copper (Cu 13,5%), Compat Ferro (Fe 13%), Compat Zinco (Zn 15%)",
+    "benefits": [
+      "Micronutrientes 100% quelatizados de altíssima pureza.",
+      "Segurança e estabilidade no processo de misturas em tanque.",
+      "Não provoca incompatibilidades, entupimento ou danos aos bicos.",
+      "Absorção foliar ultrarrápida sem queima foliar."
+    ],
+    "dosages": [
+      {
+        "culture": "Compat Manganês",
+        "dose": "0,5 a 1,0 kg/ha",
+        "recommendation": "1 a 2 aplicações a partir de V4 em Soja, Milho, Algodão e Café."
+      },
+      {
+        "culture": "Compat Copper",
+        "dose": "100 a 500 g/ha",
+        "recommendation": "1 a 3 aplicações a partir do botão floral / brotações."
+      },
+      {
+        "culture": "Compat Ferro",
+        "dose": "100 a 500 g/ha",
+        "recommendation": "Durante todo o ciclo conforme sintomas de deficiência."
+      },
+      {
+        "culture": "Compat Zinco",
+        "dose": "0,5 a 1,5 kg/ha",
+        "recommendation": "Aplicações no pré-florescimento e vegetativo."
+      }
+    ],
+    "packshot": "packshot_compat.png"
+  },
+  {
+    "id": "linha-speed",
+    "slide_num": 14,
+    "name": "LINHA SPEED",
+    "subtitle": "SUPLEMENTAÇÃO FOLIAR PARA ALTAS PRODUTIVIDADES",
+    "category": "Nutrição Foliar Complexada",
+    "category_slug": "foliar",
+    "description": "Desenvolvida para atender as demandas nutricionais via folha de diversas culturas através de complexos equilibrados de macro e micronutrientes, agentes complexantes e quelatizantes de alta performance.",
+    "guarantees": "6 Soluções Segmentadas: Speed Base, Speed Crescimento, Speed Gramínea, Speed Cana, Speed Algodão, Speed Citros",
+    "benefits": [
+      "Balanço nutricional balanceado de macro e micronutrientes essenciais.",
+      "Rápida eficiência de absorção e translocação dentro da planta.",
+      "Alta solubilidade em água e segurança total de uso.",
+      "Combinação sinérgica que ativa o metabolismo produtivo."
+    ],
+    "dosages": [
+      {
+        "culture": "Speed Base",
+        "dose": "1,0 a 2,0 kg/ha",
+        "recommendation": "Aplicações entre V8 e R3 em Soja, Milho, Feijão e Café."
+      },
+      {
+        "culture": "Speed Crescimento",
+        "dose": "1,0 a 3,0 kg/ha",
+        "recommendation": "Aplicações da pré-florada até a granação / enchimento."
+      },
+      {
+        "culture": "Speed Cana",
+        "dose": "1,0 a 3,0 kg/ha",
+        "recommendation": "Pulverização sobre os toletes e 1 a 3 aplicações no vegetativo."
+      },
+      {
+        "culture": "Speed Citros / Frutíferas",
+        "dose": "2,0 a 3,0 kg/ha",
+        "recommendation": "Aplicações do vegetativo até o enchimento de frutos."
+      }
+    ],
+    "packshot": "packshot_speed.png"
+  },
+  {
+    "id": "propon",
+    "slide_num": 21,
+    "name": "PROPON",
+    "subtitle": "MÁXIMA PRECISÃO PARA AS APLICAÇÕES",
+    "category": "Tecnologia de Aplicação",
+    "category_slug": "adjuvantes",
+    "description": "Adjuvante especial para aplicações de alta performance. É indicado para aplicações com caldas complexas, de menor volume e que exigem maior controle de deriva, garantindo que o ativo chegue exatamente ao alvo.",
+    "guarantees": "Polímeros e Tensoativos Especiais com Ação Emulsificante e Antideriva",
+    "benefits": [
+      "Excelente efeito redutor de deriva, com maior deposição sobre os alvos.",
+      "Maior estabilidade de calda em misturas complexas.",
+      "Ótimo desempenho em aplicações terrestres e aéreas.",
+      "Melhoria da performance de biológicos e defensivos químicos."
+    ],
+    "dosages": [
+      {
+        "culture": "Aplicações Terrestres",
+        "dose": "30 a 50 mL / 100 L de calda",
+        "recommendation": "Em todas as pulverizações foliares com defensivos."
+      },
+      {
+        "culture": "Aplicações Aéreas",
+        "dose": "50 a 100 mL/ha",
+        "recommendation": "Ajuste conforme vazão (baixo e ultrabaixo volume)."
+      },
+      {
+        "culture": "Caldas Complexas / Biológicos",
+        "dose": "50 mL / 100 L de calda",
+        "recommendation": "Garante compatibilidade física e preserva a viabilidade."
+      }
+    ],
+    "packshot": "packshot_propon.png"
+  }
+]
