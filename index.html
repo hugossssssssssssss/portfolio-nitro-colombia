@@ -19,16 +19,16 @@
 
   <style>
 /* ==========================================================================
-   NITRO COLÔMBIA 2026 · CINEMATIC SHOWCASE (NO CHROME, MULTI-LAYER PARALLAX)
-   Full-Bleed 16:9 Slides, Atmospheric Photography, Monumental Typography
+   NITRO COLÔMBIA 2026 · ZERO-CHROME CINEMATIC SHOWCASE
+   Seamless Photography Blending, Monumental Typography, Authentic Packshots
    ========================================================================== */
 
 :root {
   --bg-deep: #020603;
   --nitro-green: #00e575;
-  --nitro-green-glow: rgba(0, 229, 117, 0.4);
+  --nitro-green-glow: rgba(0, 229, 117, 0.45);
   --nitro-gold: #f5b041;
-  --nitro-gold-glow: rgba(245, 176, 65, 0.4);
+  --nitro-gold-glow: rgba(245, 176, 65, 0.45);
   --nitro-blue: #38bdf8;
   --text-white: #ffffff;
   --text-light: #d6e5dc;
@@ -80,17 +80,17 @@ img, svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem 4rem;
+  padding: 6rem 4.5rem;
   overflow: hidden;
   box-sizing: border-box;
 }
 
-/* Layer 1: Background Photography with Depth Gradient */
+/* Seamless Vignette Mask: Zero Seams/Lines Between Slides */
 .slide-bg-photo {
   position: absolute;
   top: -10%;
-  left: -5%;
-  width: 110%;
+  left: 0;
+  width: 100%;
   height: 120%;
   background-size: cover;
   background-position: center;
@@ -98,9 +98,10 @@ img, svg {
   filter: brightness(0.24) contrast(1.15) saturate(1.2);
   z-index: 0;
   pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
   transform: translate3d(0, 0, 0);
   will-change: transform;
-  transition: transform 0.1s ease-out;
 }
 
 .slide-overlay-gradient {
@@ -109,24 +110,24 @@ img, svg {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 60% 50%, rgba(0, 229, 117, 0.08) 0%, rgba(2, 6, 3, 0.65) 60%, rgba(2, 6, 3, 0.95) 100%);
+  background: radial-gradient(circle at 65% 50%, rgba(0, 229, 117, 0.09) 0%, rgba(2, 6, 3, 0.6) 60%, rgba(2, 6, 3, 0.95) 100%);
   z-index: 1;
   pointer-events: none;
 }
 
 .overlay-gold {
-  background: radial-gradient(circle at 60% 50%, rgba(245, 176, 65, 0.1) 0%, rgba(2, 6, 3, 0.65) 60%, rgba(2, 6, 3, 0.95) 100%);
+  background: radial-gradient(circle at 65% 50%, rgba(245, 176, 65, 0.12) 0%, rgba(2, 6, 3, 0.6) 60%, rgba(2, 6, 3, 0.95) 100%);
 }
 
 .overlay-blue {
-  background: radial-gradient(circle at 60% 50%, rgba(56, 189, 248, 0.09) 0%, rgba(2, 6, 3, 0.65) 60%, rgba(2, 6, 3, 0.95) 100%);
+  background: radial-gradient(circle at 65% 50%, rgba(56, 189, 248, 0.1) 0%, rgba(2, 6, 3, 0.6) 60%, rgba(2, 6, 3, 0.95) 100%);
 }
 
 /* Layer 2: Monumental Watermark Numbers */
 .slide-watermark {
   position: absolute;
   top: 50%;
-  right: 2%;
+  right: 3%;
   transform: translateY(-50%);
   font-family: var(--font-display);
   font-size: clamp(10rem, 26vw, 30rem);
@@ -138,7 +139,6 @@ img, svg {
   z-index: 1;
   letter-spacing: -0.05em;
   will-change: transform;
-  transition: transform 0.15s ease-out;
 }
 
 /* Layer 3: Foreground Content Grid */
@@ -146,12 +146,12 @@ img, svg {
   position: relative;
   z-index: 3;
   width: 100%;
-  max-width: 1480px;
+  max-width: 1520px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
+  grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
-  gap: 5rem;
+  gap: 5.5rem;
 }
 
 /* Left Column: Pure Cinematic Typography */
@@ -210,14 +210,14 @@ img, svg {
   line-height: 1.75;
   color: var(--text-light);
   margin-bottom: 2.4rem;
-  max-width: 720px;
+  max-width: 740px;
 }
 
 /* Key Metrics & Big Figures */
 .metrics-row {
   display: flex;
   align-items: flex-start;
-  gap: 3.5rem;
+  gap: 4rem;
   margin-bottom: 2.2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -231,7 +231,7 @@ img, svg {
 
 .metric-huge {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4vw, 3.8rem);
+  font-size: clamp(2.6rem, 4.2vw, 4rem);
   font-weight: 900;
   line-height: 1;
   color: var(--nitro-green);
@@ -256,27 +256,17 @@ img, svg {
   margin-top: 0.4rem;
 }
 
-/* Benefits & Technical Details */
+/* Benefits & Technical Details (No Dashes) */
 .technical-details {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
 .technical-line {
-  font-size: 0.96rem;
+  font-size: 0.98rem;
   line-height: 1.65;
   color: var(--text-light);
-  position: relative;
-  padding-left: 1.6rem;
-}
-
-.technical-line::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: var(--nitro-green);
-  font-weight: 800;
 }
 
 .technical-guarantee {
@@ -305,11 +295,10 @@ img, svg {
   justify-content: center;
   transform-style: preserve-3d;
   will-change: transform;
-  transition: transform 0.12s ease-out;
 }
 
 .monumental-packshot {
-  max-height: 560px;
+  max-height: 580px;
   width: auto;
   filter: drop-shadow(0 35px 50px rgba(0, 0, 0, 0.95));
   user-select: none;
@@ -318,31 +307,31 @@ img, svg {
 }
 
 .packshot-wrapper:hover .monumental-packshot {
-  transform: scale(1.05) translateY(-6px);
+  transform: scale(1.05) translateY(-8px);
 }
 
 .volumetric-aura {
   position: absolute;
-  width: 480px;
-  height: 480px;
+  width: 520px;
+  height: 520px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 229, 117, 0.22) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(0, 229, 117, 0.25) 0%, transparent 65%);
   filter: blur(50px);
   z-index: -1;
   pointer-events: none;
 }
 
 .volumetric-aura.aura-gold {
-  background: radial-gradient(circle, rgba(245, 176, 65, 0.24) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(245, 176, 65, 0.26) 0%, transparent 65%);
 }
 
 .volumetric-aura.aura-blue {
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.24) 0%, transparent 65%);
 }
 
 /* ==========================================================================
    CATEGORY DIVIDER SLIDES (MONUMENTAL CHAPTERS)
-   ========================================================================== */
+   ========================================================================= */
 .chapter-slide {
   text-align: center;
 }
@@ -350,7 +339,7 @@ img, svg {
 .chapter-inner {
   position: relative;
   z-index: 3;
-  max-width: 1000px;
+  max-width: 1050px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -369,7 +358,7 @@ img, svg {
 
 .chapter-title {
   font-family: var(--font-display);
-  font-size: clamp(3.6rem, 8vw, 7.5rem);
+  font-size: clamp(3.6rem, 8.5vw, 7.8rem);
   font-weight: 900;
   letter-spacing: -0.035em;
   line-height: 0.96;
@@ -385,43 +374,39 @@ img, svg {
   font-size: clamp(1.2rem, 2vw, 1.6rem);
   line-height: 1.65;
   color: var(--text-light);
-  max-width: 780px;
+  max-width: 820px;
 }
 
 /* ==========================================================================
-   COVER SLIDE
+   SLIDE 01: HEROIC COVER (CENTERED LOGO & PROMINENT SUSTENT)
    ========================================================================== */
-.cover-hero-wrap {
+.cover-center-layout {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.cover-header-brand {
-  height: 48px;
+.cover-logo-center {
+  height: 64px;
   width: auto;
-  margin-bottom: 2.5rem;
-  filter: drop-shadow(0 4px 20px rgba(0, 229, 117, 0.3));
-}
-
-.cover-badge-text {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--nitro-green);
-  margin-bottom: 1.2rem;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 30px rgba(0, 229, 117, 0.5));
 }
 
 .cover-giant-title {
   font-family: var(--font-display);
-  font-size: clamp(3.8rem, 7vw, 6.8rem);
+  font-size: clamp(3.8rem, 7.5vw, 7.2rem);
   font-weight: 900;
   letter-spacing: -0.035em;
   line-height: 0.96;
   text-transform: uppercase;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
   background: linear-gradient(180deg, #ffffff 50%, #b6cfc2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -434,18 +419,101 @@ img, svg {
   letter-spacing: -0.01em;
   color: var(--nitro-green);
   text-transform: uppercase;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
   text-shadow: 0 0 35px rgba(0, 229, 117, 0.35);
 }
 
-.cover-footer-edition {
+.cover-packshot-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 620px;
+}
+
+.hero-cover-img {
+  max-height: 480px;
+  width: auto;
+  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.95));
+}
+
+/* ==========================================================================
+   SLIDE 02: INSTITUCIONAL IMMERSIVE STORYTELLING
+   ========================================================================== */
+.institucional-layout {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+.institucional-header {
+  margin-bottom: 3.5rem;
+  text-align: left;
+}
+
+.institucional-story-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.story-card {
+  background: rgba(3, 9, 5, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 229, 117, 0.15);
+  border-radius: 18px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.story-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 229, 117, 0.4);
+  background: rgba(3, 9, 5, 0.85);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+.story-big-num {
   font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--text-dim);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--nitro-green);
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+
+.story-card-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-white);
   text-transform: uppercase;
-  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.story-card-text {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--text-light);
+}
+
+.institucional-quote-banner {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  font-weight: 700;
+  color: var(--text-white);
+  border-left: 4px solid var(--nitro-green);
+  padding-left: 2rem;
+  line-height: 1.5;
+  font-style: italic;
+  max-width: 1100px;
 }
 
 /* ==========================================================================
@@ -465,10 +533,6 @@ img, svg {
 
 .reveal-flow.delay-1 {
   transition-delay: 0.15s;
-}
-
-.reveal-flow.delay-2 {
-  transition-delay: 0.3s;
 }
 
 /* ==========================================================================
@@ -496,18 +560,11 @@ img, svg {
   .metrics-row {
     justify-content: center;
   }
-  .technical-line {
-    padding-left: 0;
-  }
-  .technical-line::before {
-    display: none;
-  }
   .monumental-packshot {
     max-height: 420px;
   }
-  .cover-header-brand {
-    margin-left: auto;
-    margin-right: auto;
+  .institucional-story-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -521,6 +578,9 @@ img, svg {
   .monumental-packshot {
     max-height: 320px;
   }
+  .cover-giant-title {
+    font-size: 3rem;
+  }
 }
   </style>
 </head>
@@ -529,77 +589,77 @@ img, svg {
   <main class="presentation-flow">
 
     <!-- ====================================================================
-         SLIDE 01: CAPA
+         SLIDE 01: CAPA (HEROIC CENTERED COMPOSITION)
          ==================================================================== -->
     <section id="slide-1" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_capa_master.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_aerial_field.jpg');"></div>
       <div class="slide-overlay-gradient"></div>
       <div class="slide-watermark">01</div>
 
-      <div class="slide-grid">
-        <div class="cover-hero-wrap reveal-flow">
-          <img src="assets/images/logo_nitro.svg" alt="Nitro Logo" class="cover-header-brand">
-          <span class="cover-badge-text">Ed. 2 | Junho/2026 · Catálogo Cross</span>
-          <h1 class="cover-giant-title">SOLUÇÕES NITRO</h1>
-          <h2 class="cover-giant-sub">OMBRO A OMBRO COM O PRODUTOR</h2>
-          <p class="slide-desc-heroic">
-            Portfólio técnico oficial de nutrição e fisiologia vegetal de alta performance para o agronegócio na Colômbia.
-          </p>
-          <span class="cover-footer-edition">Companhia Nitro Química Brasileira · Presença Global</span>
-        </div>
+      <div class="cover-center-layout reveal-flow">
+        <img src="assets/images/logo_nitro.svg" alt="Nitro Logo" class="cover-logo-center">
+        <h1 class="cover-giant-title">SOLUÇÕES NITRO</h1>
+        <h2 class="cover-giant-sub">OMBRO A OMBRO COM O PRODUTOR</h2>
 
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_sustent.png" alt="Nitro Portfólio Destaque" class="monumental-packshot">
-            <div class="volumetric-aura"></div>
-          </div>
+        <div class="cover-packshot-hero" data-parallax="packshot">
+          <img src="assets/images/products/pack_sustent.png" alt="Sustent Destaque Nitro" class="hero-cover-img">
+          <div class="volumetric-aura"></div>
         </div>
       </div>
     </section>
 
     <!-- ====================================================================
-         SLIDE 02: INSTITUCIONAL
+         SLIDE 02: INSTITUCIONAL (FULL FIELD BACKGROUND & 3 STORY HIGHLIGHTS)
          ==================================================================== -->
     <section id="slide-2" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_institucional.png');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_institucional.png'); filter: brightness(0.28) contrast(1.15);"></div>
       <div class="slide-overlay-gradient"></div>
       <div class="slide-watermark">02</div>
 
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
+      <div class="institucional-layout reveal-flow">
+        <div class="institucional-header">
           <span class="slide-category">Institucional</span>
           <h2 class="slide-title-heroic">OMBRO A OMBRO COM O PRODUTOR</h2>
           <h3 class="slide-subtitle-heroic">CIÊNCIA, INOVAÇÃO E PROXIMIDADE COM O CAMPO</h3>
-          <p class="slide-desc-heroic">
-            A Nitro é uma empresa nacional com presença global, referência em especialidades químicas e soluções inovadoras para o agronegócio. Atuamos ombro a ombro com o agricultor, levando ao campo um portfólio completo e tecnicamente validado, que inclui soluções em nutrição e fisiologia vegetal e biodefensivos, tudo desenvolvido especialmente para a realidade da agricultura brasileira.
-          </p>
-          <div class="technical-details">
-            <p class="technical-line">
-              Com nove décadas de história, somos movidos por ciência, inovação e proximidade com o campo. Nosso trabalho é transformar desafios em produtividade sustentável, com foco em entregar resultados consistentes e soluções práticas para o dia a dia da lavoura.
+        </div>
+
+        <div class="institucional-story-grid">
+          <div class="story-card">
+            <span class="story-big-num">90</span>
+            <h4 class="story-card-title">Anos de História</h4>
+            <p class="story-card-text">
+              Movidos por ciência, inovação e proximidade com o campo para transformar desafios em produtividade sustentável, com foco em resultados consistentes e soluções práticas no dia a dia da lavoura.
             </p>
-            <p class="technical-line">
-              Com sete plantas industriais no Brasil, Uruguai e Estados Unidos, exportamos especialidades químicas para mais de 70 países. No agro já ultrapassamos as fronteiras, com atuação comercial na América Latina e contamos com estrutura moderna, capital sólido e autossuficiência energética.
+          </div>
+
+          <div class="story-card">
+            <span class="story-big-num">7</span>
+            <h4 class="story-card-title">Plantas Industriais</h4>
+            <p class="story-card-text">
+              Complexos industriais no Brasil, Uruguai e Estados Unidos, exportando especialidades químicas para mais de 70 países e atuando comercialmente em toda a América Latina.
             </p>
-            <p class="technical-line" style="color: var(--nitro-green); font-weight: 600;">
-              "Entregamos hoje o que muitos ainda veem como o futuro. Somos a Nitro. Ombro a ombro com o produtor."
+          </div>
+
+          <div class="story-card">
+            <span class="story-big-num">100%</span>
+            <h4 class="story-card-title">Solidez & Energia</h4>
+            <p class="story-card-text">
+              Estrutura moderna, capital sólido e autossuficiência energética garantindo segurança de fornecimento, visão de longo prazo e alta performance no campo.
             </p>
           </div>
         </div>
 
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/bg_institucional.png" alt="Equipe Nitro" class="monumental-packshot" style="border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.85);">
-            <div class="volumetric-aura"></div>
-          </div>
-        </div>
+        <blockquote class="institucional-quote-banner">
+          "Entregamos hoje o que muitos ainda veem como o futuro. Somos a Nitro. Ombro a ombro com o produtor."
+        </blockquote>
       </div>
     </section>
 
     <!-- ====================================================================
-         SLIDE 03: DIVISOR 01 · LINHA SOLO
+         SLIDE 03: DIVISOR 01 · LINHA SOLO (SEAMLESS SOIL TEXTURE)
          ==================================================================== -->
     <section id="slide-3" class="cinematic-slide chapter-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_capa_solo.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
       <div class="slide-overlay-gradient"></div>
       <div class="slide-watermark">01</div>
 
@@ -616,7 +676,7 @@ img, svg {
          SLIDE 04: MIDAS
          ==================================================================== -->
     <section id="slide-4" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_midas_art.png');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-gold"></div>
       <div class="slide-watermark">04</div>
 
@@ -651,7 +711,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_midas.png" alt="Midas" class="monumental-packshot">
+            <img src="assets/images/products/pack_midas.png" alt="Midas" class="monumental-packshot">
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -662,7 +722,7 @@ img, svg {
          SLIDE 05: MIDAS+
          ==================================================================== -->
     <section id="slide-5" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_midas_plus_art.png');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-gold"></div>
       <div class="slide-watermark">05</div>
 
@@ -678,7 +738,7 @@ img, svg {
 
           <div class="metrics-row">
             <div class="metric-block">
-              <span class="metric-huge gold-accent">S+Micro</span>
+              <span class="metric-huge gold-accent">S + Micro</span>
               <span class="metric-desc">Mesmo Grânulo Homogêneo</span>
             </div>
             <div class="metric-block">
@@ -697,7 +757,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_midas_plus.png" alt="Midas+" class="monumental-packshot">
+            <img src="assets/images/products/pack_midas_plus.png" alt="Midas+" class="monumental-packshot">
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -705,10 +765,10 @@ img, svg {
     </section>
 
     <!-- ====================================================================
-         SLIDE 06: DIVISOR 02 · BIOFERTILIZANTES E FISIOLÓGICOS
+         SLIDE 06: DIVISOR 02 · BIOFERTILIZANTES E FISIOLÓGICOS (CLEAN PHOTO)
          ==================================================================== -->
     <section id="slide-6" class="cinematic-slide chapter-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_capa_ts.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
       <div class="slide-overlay-gradient"></div>
       <div class="slide-watermark">02</div>
 
@@ -725,7 +785,7 @@ img, svg {
          SLIDE 07: NITRO SUPPORT
          ==================================================================== -->
     <section id="slide-7" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_nitro_support_art.png');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
       <div class="slide-overlay-gradient overlay-blue"></div>
       <div class="slide-watermark">07</div>
 
@@ -761,7 +821,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_nitro_support.png" alt="Nitro Support" class="monumental-packshot">
+            <img src="assets/images/products/pack_nitro_support.png" alt="Nitro Support" class="monumental-packshot">
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -772,7 +832,7 @@ img, svg {
          SLIDE 08: SUSTENT
          ==================================================================== -->
     <section id="slide-8" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_capa_fisiologia.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
       <div class="slide-overlay-gradient"></div>
       <div class="slide-watermark">08</div>
 
@@ -807,7 +867,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_sustent.png" alt="Sustent" class="monumental-packshot">
+            <img src="assets/images/products/pack_sustent.png" alt="Sustent" class="monumental-packshot">
             <div class="volumetric-aura"></div>
           </div>
         </div>
@@ -815,10 +875,10 @@ img, svg {
     </section>
 
     <!-- ====================================================================
-         SLIDE 09: DIVISOR 03 · NUTRIÇÃO FOLIAR
+         SLIDE 09: DIVISOR 03 · NUTRIÇÃO FOLIAR (CLEAN DROPLETS PHOTO)
          ==================================================================== -->
     <section id="slide-9" class="cinematic-slide chapter-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_capa_fisiologia.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient"></div>
       <div class="slide-watermark">03</div>
 
@@ -835,7 +895,7 @@ img, svg {
          SLIDE 10: LINHA COMPAT (VISÃO GERAL)
          ==================================================================== -->
     <section id="slide-10" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_capa_fisiologia.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-blue"></div>
       <div class="slide-watermark">10</div>
 
@@ -869,7 +929,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_compat.png" alt="Linha Compat" class="monumental-packshot">
+            <img src="assets/images/products/pack_compat_manganes.png" alt="Linha Compat" class="monumental-packshot">
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -880,7 +940,7 @@ img, svg {
          SLIDE 11: COMPAT MANGANÊS
          ==================================================================== -->
     <section id="slide-11" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-blue"></div>
       <div class="slide-watermark">11</div>
 
@@ -913,7 +973,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_compat.png" alt="Compat Manganês" class="monumental-packshot">
+            <img src="assets/images/products/pack_compat_manganes.png" alt="Compat Manganês" class="monumental-packshot">
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -924,7 +984,7 @@ img, svg {
          SLIDE 12: COMPAT COPPER
          ==================================================================== -->
     <section id="slide-12" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-blue"></div>
       <div class="slide-watermark">12</div>
 
@@ -957,7 +1017,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_compat.png" alt="Compat Copper" class="monumental-packshot">
+            <img src="assets/images/products/pack_compat_copper.png" alt="Compat Copper" class="monumental-packshot">
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -968,7 +1028,7 @@ img, svg {
          SLIDE 13: COMPAT FERRO
          ==================================================================== -->
     <section id="slide-13" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-blue"></div>
       <div class="slide-watermark">13</div>
 
@@ -1001,7 +1061,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_compat.png" alt="Compat Ferro" class="monumental-packshot">
+            <img src="assets/images/products/pack_compat_ferro.png" alt="Compat Ferro" class="monumental-packshot">
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -1012,7 +1072,7 @@ img, svg {
          SLIDE 14: COMPAT ZINCO
          ==================================================================== -->
     <section id="slide-14" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-blue"></div>
       <div class="slide-watermark">14</div>
 
@@ -1045,7 +1105,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_compat.png" alt="Compat Zinco" class="monumental-packshot">
+            <img src="assets/images/products/pack_compat_zinco.png" alt="Compat Zinco" class="monumental-packshot">
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -1056,7 +1116,7 @@ img, svg {
          SLIDE 15: LINHA SPEED · BASE
          ==================================================================== -->
     <section id="slide-15" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-gold"></div>
       <div class="slide-watermark">15</div>
 
@@ -1090,7 +1150,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_speed.png" alt="Speed Base" class="monumental-packshot">
+            <img src="assets/images/products/pack_speed_base.png" alt="Speed Base" class="monumental-packshot">
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -1101,7 +1161,7 @@ img, svg {
          SLIDE 16: SPEED CRESCIMENTO
          ==================================================================== -->
     <section id="slide-16" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-gold"></div>
       <div class="slide-watermark">16</div>
 
@@ -1134,7 +1194,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_speed.png" alt="Speed Crescimento" class="monumental-packshot">
+            <img src="assets/images/products/pack_speed_crescimento.png" alt="Speed Crescimento" class="monumental-packshot">
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -1145,7 +1205,7 @@ img, svg {
          SLIDE 17: SPEED CANA
          ==================================================================== -->
     <section id="slide-17" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-gold"></div>
       <div class="slide-watermark">17</div>
 
@@ -1178,7 +1238,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_speed.png" alt="Speed Cana" class="monumental-packshot">
+            <img src="assets/images/products/pack_speed_cana.png" alt="Speed Cana" class="monumental-packshot">
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -1186,10 +1246,10 @@ img, svg {
     </section>
 
     <!-- ====================================================================
-         SLIDE 18: SPEED COMPLETO
+         SLIDE 18: SPEED COMPLETO (ALGODÃO / GRÃOS)
          ==================================================================== -->
     <section id="slide-18" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-gold"></div>
       <div class="slide-watermark">18</div>
 
@@ -1222,7 +1282,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_speed.png" alt="Speed Completo" class="monumental-packshot">
+            <img src="assets/images/products/pack_speed_algodao.png" alt="Speed Completo" class="monumental-packshot">
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -1233,7 +1293,7 @@ img, svg {
          SLIDE 19: SPEED CITROS
          ==================================================================== -->
     <section id="slide-19" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/slide_9_img_1.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
       <div class="slide-overlay-gradient overlay-gold"></div>
       <div class="slide-watermark">19</div>
 
@@ -1266,7 +1326,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_speed.png" alt="Speed Citros" class="monumental-packshot">
+            <img src="assets/images/products/pack_speed_citros.png" alt="Speed Citros" class="monumental-packshot">
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -1274,10 +1334,10 @@ img, svg {
     </section>
 
     <!-- ====================================================================
-         SLIDE 20: DIVISOR 04 · TECNOLOGIA DE APLICAÇÃO
+         SLIDE 20: DIVISOR 04 · TECNOLOGIA DE APLICAÇÃO (CLEAN SPRAYING PHOTO)
          ==================================================================== -->
     <section id="slide-20" class="cinematic-slide chapter-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_capa_ta.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_field.jpg');"></div>
       <div class="slide-overlay-gradient"></div>
       <div class="slide-watermark">04</div>
 
@@ -1294,7 +1354,7 @@ img, svg {
          SLIDE 21: PROPON
          ==================================================================== -->
     <section id="slide-21" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/bg_capa_ta.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_field.jpg');"></div>
       <div class="slide-overlay-gradient"></div>
       <div class="slide-watermark">21</div>
 
@@ -1329,7 +1389,7 @@ img, svg {
 
         <div class="slide-visual reveal-flow delay-1">
           <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/packshot_propon.png" alt="Propon" class="monumental-packshot">
+            <img src="assets/images/products/pack_propon.png" alt="Propon" class="monumental-packshot">
             <div class="volumetric-aura"></div>
           </div>
         </div>
@@ -1360,9 +1420,7 @@ function initMultiLayerParallax() {
 
         slides.forEach(slide => {
           const rect = slide.getBoundingClientRect();
-          // Check if slide is in or near viewport
           if (rect.bottom >= -100 && rect.top <= windowHeight + 100) {
-            // Normalized distance from screen center (-1 to 1)
             const progress = (rect.top + rect.height / 2 - windowHeight / 2) / (windowHeight / 2);
 
             const bgPhoto = slide.querySelector('.slide-bg-photo');
@@ -1370,15 +1428,15 @@ function initMultiLayerParallax() {
             const packshot = slide.querySelector('[data-parallax="packshot"]');
 
             if (bgPhoto) {
-              bgPhoto.style.transform = `translate3d(0, ${progress * -35}px, 0) scale(1.05)`;
+              bgPhoto.style.transform = `translate3d(0, ${progress * -40}px, 0) scale(1.06)`;
             }
 
             if (watermark) {
-              watermark.style.transform = `translateY(calc(-50% + ${progress * 50}px))`;
+              watermark.style.transform = `translateY(calc(-50% + ${progress * 55}px))`;
             }
 
             if (packshot && !slide.matches(':hover')) {
-              packshot.style.transform = `translate3d(0, ${progress * -65}px, 0)`;
+              packshot.style.transform = `translate3d(0, ${progress * -70}px, 0)`;
             }
           }
         });
@@ -1404,7 +1462,7 @@ function initIntersectionReveal() {
       }
     });
   }, {
-    threshold: 0.18
+    threshold: 0.15
   });
 
   reveals.forEach(el => observer.observe(el));
@@ -1426,13 +1484,13 @@ function init3DMouseTilt() {
       if (raf) cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const rect = slide.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-        const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
 
         const rotateX = -y * 18;
         const rotateY = x * 20;
 
-        packshotWrap.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
+        packshotWrap.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
       });
     }, { passive: true });
 
