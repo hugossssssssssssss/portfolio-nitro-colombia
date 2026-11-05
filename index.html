@@ -19,8 +19,8 @@
 
   <style>
 /* ==========================================================================
-   NITRO COLOMBIA 2026 · CINEMATIC KEYNOTE DECK ENGINE (100VH FULLSCREEN)
-   Zero Chrome, Zero Em-Dashes, Monumental Typography, Authentic Packshots
+   NITRO COLOMBIA 2026 · AWWWARDS-GRADE CINEMATIC KEYNOTE ENGINE (100VH)
+   Zero Chrome, Zero Em-Dashes, Scrubbed Camera Physics, Living Products
    ========================================================================== */
 
 :root {
@@ -36,6 +36,7 @@
   --text-muted: #8ba396;
   --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ease-apple: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 *, *::before, *::after {
@@ -57,7 +58,20 @@ html, body {
 }
 
 /* ==========================================================================
-   PRESENTATION DECK VIEWPORT
+   AMBIENT BOTANICAL PARTICLES CANVAS
+   ========================================================================== */
+#ambientCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.65;
+}
+
+/* ==========================================================================
+   PRESENTATION DECK VIEWPORT & SLIDE STAGES
    ========================================================================== */
 .deck-viewport {
   position: fixed;
@@ -68,7 +82,7 @@ html, body {
   background: var(--bg-deep);
 }
 
-/* Base Slide Stage (Full 100vh canvas) */
+/* Base Slide Stage (Full 100vh canvas with Camera Depth Scrub) */
 .slide-stage {
   position: absolute;
   inset: 0;
@@ -82,11 +96,13 @@ html, body {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(60px) scale(0.97);
-  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.85s;
-  will-change: transform, opacity;
+  transform: scale(1.08) translateY(50px);
+  filter: blur(10px);
+  transition: transform 1.1s var(--ease-apple),
+              opacity 1.0s var(--ease-apple),
+              filter 1.0s var(--ease-apple),
+              visibility 1.1s;
+  will-change: transform, opacity, filter;
   z-index: 1;
 }
 
@@ -94,7 +110,8 @@ html, body {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateY(0) scale(1);
+  transform: scale(1.0) translateY(0);
+  filter: blur(0px);
   z-index: 10;
 }
 
@@ -102,11 +119,12 @@ html, body {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(-60px) scale(0.97);
+  transform: scale(0.92) translateY(-40px);
+  filter: blur(8px);
   z-index: 2;
 }
 
-/* Cinematic Background Photography */
+/* Photographic Background Texture with Slow Drift */
 .slide-bg-photo {
   position: absolute;
   inset: 0;
@@ -115,37 +133,53 @@ html, body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: brightness(0.24) contrast(1.15) saturate(1.2);
+  filter: brightness(0.24) contrast(1.18) saturate(1.22);
   z-index: 0;
   pointer-events: none;
-  transform: scale(1.08);
-  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.12);
+  transition: transform 2.2s var(--ease-apple);
 }
 
 .slide-stage.active .slide-bg-photo {
-  transform: scale(1.0);
+  transform: scale(1.02);
 }
 
-/* Soft Radial Spotlight Overlay */
+/* Dynamic Radial Spotlight Following Theme */
 .slide-spotlight {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 65% 50%, rgba(0, 229, 117, 0.08) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
+  background: radial-gradient(circle at 65% 50%, rgba(0, 229, 117, 0.09) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
   z-index: 1;
   pointer-events: none;
 }
 
+.spotlight-left {
+  background: radial-gradient(circle at 35% 50%, rgba(0, 229, 117, 0.09) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
+}
+
 .spotlight-gold {
-  background: radial-gradient(circle at 65% 50%, rgba(245, 176, 65, 0.1) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
+  background: radial-gradient(circle at 65% 50%, rgba(245, 176, 65, 0.12) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
+}
+
+.spotlight-gold-left {
+  background: radial-gradient(circle at 35% 50%, rgba(245, 176, 65, 0.12) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
 }
 
 .spotlight-blue {
-  background: radial-gradient(circle at 65% 50%, rgba(56, 189, 248, 0.09) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
+  background: radial-gradient(circle at 65% 50%, rgba(56, 189, 248, 0.1) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
 }
 
-/* Monumental Background Watermark (Slide Number) */
+.spotlight-blue-left {
+  background: radial-gradient(circle at 35% 50%, rgba(56, 189, 248, 0.1) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
+}
+
+.spotlight-center {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 229, 117, 0.13) 0%, rgba(2, 6, 3, 0.58) 60%, rgba(2, 6, 3, 0.96) 100%);
+}
+
+/* Monumental Slide Watermark Numeral */
 .slide-watermark {
   position: absolute;
   top: 50%;
@@ -154,12 +188,22 @@ html, body {
   font-family: var(--font-display);
   font-size: clamp(12rem, 30vw, 34rem);
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.022);
+  color: rgba(255, 255, 255, 0.024);
   user-select: none;
   pointer-events: none;
   line-height: 1;
   z-index: 1;
   letter-spacing: -0.05em;
+  transition: transform 1.2s var(--ease-apple);
+}
+
+.watermark-left {
+  right: auto;
+  left: 2%;
+}
+
+.slide-stage.active .slide-watermark {
+  transform: translateY(-50%) scale(1.0);
 }
 
 /* ==========================================================================
@@ -232,7 +276,7 @@ html, body {
   max-height: 460px;
   filter: drop-shadow(0 35px 60px rgba(0, 0, 0, 0.95));
   user-select: none;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: organicFloat 6s ease-in-out infinite alternate;
 }
 
 .cover-scroll-hint {
@@ -414,7 +458,7 @@ html, body {
 }
 
 /* ==========================================================================
-   PRODUCT SLIDES (KEYNOTE SPLIT-SCREEN COMPOSITION)
+   PRODUCT SLIDES: DYNAMIC ALTERNATING LAYOUTS
    ========================================================================== */
 .product-stage {
   position: relative;
@@ -428,7 +472,53 @@ html, body {
   gap: 5vw;
 }
 
-/* Left Column: Pure Cinematic Editorial Typography */
+/* Inverted Layout (Left Packshot, Right Info) */
+.product-stage.layout-left {
+  grid-template-columns: 0.85fr 1.15fr;
+}
+
+.product-stage.layout-left .product-visual-col {
+  order: 1;
+}
+
+.product-stage.layout-left .product-info-col {
+  order: 2;
+}
+
+/* Monumental Center Layout (for Sustent in Slide 08) */
+.product-stage-center {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-center-header {
+  margin-bottom: 2vh;
+}
+
+.product-center-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 3vw;
+  width: 100%;
+}
+
+.center-side-col {
+  text-align: left;
+}
+
+.center-side-col.align-right {
+  text-align: right;
+}
+
+/* Left/Right Column: Pure Cinematic Editorial Typography */
 .product-info-col {
   display: flex;
   flex-direction: column;
@@ -555,7 +645,10 @@ html, body {
   color: var(--nitro-gold);
 }
 
-/* Right Column: Monumental Packshot with Volumetric Aura */
+/* ==========================================================================
+   DYNAMIC LIVING PACKSHOT STAGE
+   Continuous Floating, 3D Parallax Gyro, Specular Sheen Light Reflection
+   ========================================================================== */
 .product-visual-col {
   position: relative;
   display: flex;
@@ -572,7 +665,7 @@ html, body {
   justify-content: center;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s var(--ease-apple);
 }
 
 .keynote-packshot-img {
@@ -581,12 +674,35 @@ html, body {
   max-height: 620px;
   filter: drop-shadow(0 30px 55px rgba(0, 0, 0, 0.95));
   user-select: none;
-  animation: floatPackshot 6s ease-in-out infinite alternate;
+  animation: organicFloat 6.5s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
-@keyframes floatPackshot {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-12px); }
+/* Organic Levitation & Subtle Breathing Animation */
+@keyframes organicFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-14px) rotate(0.8deg) scale(1.015);
+  }
+  100% {
+    transform: translateY(-6px) rotate(-0.5deg) scale(1);
+  }
+}
+
+/* Specular Sheen Dynamic Highlight Following Cursor */
+.specular-sheen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mouse-x, 60%) var(--mouse-y, 40%), rgba(255, 255, 255, 0.38) 0%, transparent 55%);
+  mix-blend-mode: overlay;
+  opacity: 0.8;
+  border-radius: 20px;
+  transition: opacity 0.3s;
 }
 
 .volumetric-aura {
@@ -594,22 +710,29 @@ html, body {
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 229, 117, 0.22) 0%, transparent 65%);
-  filter: blur(50px);
+  background: radial-gradient(circle, rgba(0, 229, 117, 0.24) 0%, transparent 65%);
+  filter: blur(55px);
   z-index: -1;
   pointer-events: none;
+  animation: auraPulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes auraPulse {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  100% { transform: scale(1.12); opacity: 1; }
 }
 
 .aura-gold {
-  background: radial-gradient(circle, rgba(245, 176, 65, 0.24) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(245, 176, 65, 0.26) 0%, transparent 65%);
 }
 
 .aura-blue {
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 65%);
 }
 
 /* ==========================================================================
    ENTRANCE STAGGER CHOREOGRAPHY (WHEN SLIDE BECOMES ACTIVE)
+   Line-by-line editorial reveal and kinetic entrance
    ========================================================================== */
 .slide-stage .anim-kicker,
 .slide-stage .anim-title,
@@ -619,26 +742,26 @@ html, body {
 .slide-stage .anim-list,
 .slide-stage .anim-packshot {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(35px);
+  transition: opacity 0.9s var(--ease-apple), transform 0.9s var(--ease-apple);
 }
 
 .slide-stage.active .anim-kicker {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.1s;
+  transition-delay: 0.08s;
 }
 
 .slide-stage.active .anim-title {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.18s;
+  transition-delay: 0.16s;
 }
 
 .slide-stage.active .anim-sub {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.25s;
+  transition-delay: 0.24s;
 }
 
 .slide-stage.active .anim-desc {
@@ -662,7 +785,7 @@ html, body {
 .slide-stage.active .anim-packshot {
   opacity: 1;
   transform: translateY(0) scale(1);
-  transition-delay: 0.22s;
+  transition-delay: 0.2s;
 }
 
 /* ==========================================================================
@@ -676,7 +799,7 @@ html, body {
     height: 58vh;
   }
   .keynote-packshot-img {
-    max-height: 520px;
+    max-height: 500px;
   }
   .product-desc {
     font-size: 0.95rem;
@@ -690,9 +813,22 @@ html, body {
 }
 
 @media (max-width: 1080px) {
-  .product-stage {
+  .product-stage,
+  .product-stage.layout-left {
     grid-template-columns: 1fr;
     gap: 3vh;
+    text-align: center;
+  }
+  .product-stage.layout-left .product-visual-col,
+  .product-stage.layout-left .product-info-col {
+    order: unset;
+  }
+  .product-center-body {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .center-side-col,
+  .center-side-col.align-right {
     text-align: center;
   }
   .product-kicker {
@@ -726,15 +862,18 @@ html, body {
 </head>
 <body>
 
+  <!-- Ambient Botanical Spores / Particles Canvas -->
+  <canvas id="ambientCanvas"></canvas>
+
   <div class="deck-viewport" id="deckViewport">
 
     <!-- ====================================================================
          SLIDE 01: CAPA (HEROIC KEYNOTE OPENER)
          ==================================================================== -->
     <div id="slide-1" class="slide-stage active" data-slide-index="0">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_aerial_field.jpg');"></div>
-      <div class="slide-spotlight"></div>
-      <div class="slide-watermark">01</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_cover_landscape.jpg');"></div>
+      <div class="slide-spotlight spotlight-center"></div>
+      <div class="slide-watermark ">01</div>
 
       <div class="cover-layout">
         <img src="assets/images/logo_nitro.svg" alt="Nitro Logo" class="cover-logo anim-title">
@@ -743,8 +882,11 @@ html, body {
         <h2 class="cover-subtitle anim-sub">PORTFÓLIO DE PRODUTOS · COLÔMBIA</h2>
 
         <div class="cover-packshot-wrapper anim-packshot">
-          <img src="assets/images/products/pack_sustent.png" alt="Sustent Destaque Nitro" class="cover-hero-img">
-          <div class="volumetric-aura"></div>
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_sustent.png" alt="Sustent Destaque Nitro" class="cover-hero-img">
+            <div class="specular-sheen"></div>
+            <div class="volumetric-aura"></div>
+          </div>
         </div>
 
         <div class="cover-scroll-hint anim-desc">
@@ -761,8 +903,8 @@ html, body {
          ==================================================================== -->
     <div id="slide-2" class="slide-stage " data-slide-index="1">
       <div class="slide-bg-photo" style="background-image: url('assets/images/bg_institucional.png'); filter: brightness(0.28) contrast(1.15);"></div>
-      <div class="slide-spotlight"></div>
-      <div class="slide-watermark">02</div>
+      <div class="slide-spotlight spotlight-center"></div>
+      <div class="slide-watermark ">02</div>
 
       <div class="institucional-stage">
         <div class="institucional-header">
@@ -774,17 +916,17 @@ html, body {
         <div class="institucional-metrics-grid">
           
           <div class="inst-metric-col anim-metrics">
-            <span class="inst-metric-num">90</span>
+            <span class="inst-metric-num counter" data-target="90" data-suffix="">0</span>
             <h4 class="inst-metric-label">Anos de História</h4>
             <p class="inst-metric-desc">Movidos por ciência, tecnologia e proximidade com o campo para entregar resultados consistentes e práticos na lavoura.</p>
           </div>
           <div class="inst-metric-col anim-metrics">
-            <span class="inst-metric-num">7</span>
+            <span class="inst-metric-num counter" data-target="7" data-suffix="">0</span>
             <h4 class="inst-metric-label">Plantas Industriais</h4>
             <p class="inst-metric-desc">Complexos de ponta no Brasil, Uruguai e Estados Unidos, exportando alta tecnologia química para mais de 70 países.</p>
           </div>
           <div class="inst-metric-col anim-metrics">
-            <span class="inst-metric-num">100%</span>
+            <span class="inst-metric-num counter" data-target="100" data-suffix="%">0%</span>
             <h4 class="inst-metric-label">Solidez e Energia</h4>
             <p class="inst-metric-desc">Estrutura moderna, capital sólido e autossuficiência energética garantindo segurança total de fornecimento ao produtor.</p>
           </div>
@@ -800,9 +942,9 @@ html, body {
          SLIDE 03: LINHA SOLO (CHAPTER)
          ==================================================================== -->
     <div id="slide-3" class="slide-stage " data-slide-index="2">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
-      <div class="slide-spotlight"></div>
-      <div class="slide-watermark">03</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_solo_macro.jpg');"></div>
+      <div class="slide-spotlight spotlight-center"></div>
+      <div class="slide-watermark ">03</div>
 
       <div class="chapter-stage">
         <span class="chapter-badge anim-kicker">CAPÍTULO 01</span>
@@ -812,14 +954,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 04: MIDAS (PRODUCT)
+         SLIDE 04: MIDAS (PRODUCT · RIGHT LAYOUT)
          ==================================================================== -->
     <div id="slide-4" class="slide-stage " data-slide-index="3">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_solo_macro.jpg');"></div>
       <div class="slide-spotlight spotlight-gold"></div>
-      <div class="slide-watermark">04</div>
+      <div class="slide-watermark ">04</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-right">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Nutrição de Solo</span>
           <h2 class="product-title anim-title">MIDAS</h2>
@@ -829,7 +971,7 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">90%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="90" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Enxofre Total (S)</span>
             </div>
             <div class="prod-metric">
@@ -846,7 +988,7 @@ html, body {
             </div>
             <div class="benefit-item">
               <span class="benefit-dot">•</span>
-              <span>Formulação exclusiva que garante suprimento homogêneo durante todo o desenvolvimento vegetativo.</span>
+              <span>Formulação exclusiva que garante suprimento homogêneo durante todo o ciclo.</span>
             </div>
             <div class="benefit-item">
               <span class="benefit-dot">•</span>
@@ -863,6 +1005,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_midas.png" alt="MIDAS" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -870,14 +1013,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 05: MIDAS+ (PRODUCT)
+         SLIDE 05: MIDAS+ (PRODUCT · LEFT LAYOUT)
          ==================================================================== -->
     <div id="slide-5" class="slide-stage " data-slide-index="4">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
-      <div class="slide-spotlight spotlight-gold"></div>
-      <div class="slide-watermark">05</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_solo_macro.jpg');"></div>
+      <div class="slide-spotlight spotlight-gold-left"></div>
+      <div class="slide-watermark watermark-left">05</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-left">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Nutrição de Solo</span>
           <h2 class="product-title anim-title">MIDAS+</h2>
@@ -921,6 +1064,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_midas_plus.png" alt="MIDAS+" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -931,9 +1075,9 @@ html, body {
          SLIDE 06: BIOFERTILIZANTES E FISIOLÓGICOS (CHAPTER)
          ==================================================================== -->
     <div id="slide-6" class="slide-stage " data-slide-index="5">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
-      <div class="slide-spotlight"></div>
-      <div class="slide-watermark">06</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_brotando.jpg');"></div>
+      <div class="slide-spotlight spotlight-center"></div>
+      <div class="slide-watermark ">06</div>
 
       <div class="chapter-stage">
         <span class="chapter-badge anim-kicker">CAPÍTULO 02</span>
@@ -943,14 +1087,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 07: NITRO SUPPORT (PRODUCT)
+         SLIDE 07: NITRO SUPPORT (PRODUCT · RIGHT LAYOUT)
          ==================================================================== -->
     <div id="slide-7" class="slide-stage " data-slide-index="6">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_brotando.jpg');"></div>
       <div class="slide-spotlight "></div>
-      <div class="slide-watermark">07</div>
+      <div class="slide-watermark ">07</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-right">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Biológicos e Fisiológicos</span>
           <h2 class="product-title anim-title">NITRO SUPPORT</h2>
@@ -960,11 +1104,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">8%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="8" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Molibdênio (Mo)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">1,2%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="1.2" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Níquel (Ni)</span>
             </div>
           </div>
@@ -998,6 +1142,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_nitro_support.png" alt="NITRO SUPPORT" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-green"></div>
           </div>
         </div>
@@ -1005,63 +1150,72 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 08: SUSTENT (PRODUCT)
+         SLIDE 08: SUSTENT (MONUMENTAL CENTER HERO)
          ==================================================================== -->
     <div id="slide-8" class="slide-stage " data-slide-index="7">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
-      <div class="slide-spotlight "></div>
-      <div class="slide-watermark">08</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soja_bloom.jpg');"></div>
+      <div class="slide-spotlight spotlight-center"></div>
+      <div class="slide-watermark ">08</div>
 
-      <div class="product-stage">
-        <div class="product-info-col">
+      <div class="product-stage-center">
+        <div class="product-center-header">
           <span class="product-kicker anim-kicker">Biológicos e Fisiológicos</span>
           <h2 class="product-title anim-title">SUSTENT</h2>
           <h3 class="product-subtitle anim-sub">O ALICERCE PARA ALTAS PRODUTIVIDADES</h3>
-          <p class="product-desc anim-desc">Solução que maximiza a performance fisiológica e nutricional das plantas. Atua em processos essenciais como o metabolismo do nitrogênio, FBN e fotossíntese, potencializando a produtividade e a saúde do cultivo.</p>
+          <p class="product-desc anim-desc" style="max-width: 820px; margin: 0 auto 2vh;">Solução que maximiza a performance fisiológica e nutricional das plantas. Atua em processos essenciais como o metabolismo do nitrogênio, FBN e fotossíntese, potencializando a produtividade e a saúde do cultivo.</p>
+        </div>
 
-          <div class="product-metrics-row anim-metrics">
-            
-            <div class="prod-metric">
-              <span class="prod-metric-val">10%</span>
-              <span class="prod-metric-label">Molibdênio (Mo)</span>
-            </div>
-            <div class="prod-metric">
-              <span class="prod-metric-val">100 a 200</span>
-              <span class="prod-metric-label">g/ha · Aplicação Foliar</span>
-            </div>
-          </div>
-
-          <div class="benefits-list anim-list">
-            
+        <div class="product-center-body">
+          <div class="center-side-col anim-list">
+            <div class="benefits-list">
+              
             <div class="benefit-item">
               <span class="benefit-dot">•</span>
               <span>Aumento significativo da produtividade e uniformidade de grãos e frutos.</span>
             </div>
             <div class="benefit-item">
               <span class="benefit-dot">•</span>
-              <span>Aumento do aproveitamento de Nitrogênio pelas culturas ao longo do ciclo.</span>
+              <span>Maior tolerância das plantas a estresses abióticos e recuperação fisiológica rápida.</span>
             </div>
+            </div>
+          </div>
+
+          <div class="product-visual-col anim-packshot">
+            <div class="packshot-3d-stage">
+              <img src="assets/images/products/pack_sustent.png" alt="SUSTENT" class="keynote-packshot-img">
+              <div class="specular-sheen"></div>
+              <div class="volumetric-aura aura-green"></div>
+            </div>
+          </div>
+
+          <div class="center-side-col anim-metrics">
+            <div class="product-metrics-row" style="border: none; padding: 0; justify-content: flex-start;">
+              
+            <div class="prod-metric">
+              <span class="prod-metric-val"><span class="counter" data-target="10" data-suffix="%">0%</span></span>
+              <span class="prod-metric-label">Molibdênio (Mo)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">100 a 200</span>
+              <span class="prod-metric-label">g/ha · Aplicação Foliar</span>
+            </div>
+            </div>
+            <div class="benefits-list" style="margin-top: 1.5vh;">
+              
             <div class="benefit-item">
               <span class="benefit-dot">•</span>
-              <span>Maior tolerância das plantas a estresses abióticos e recuperação fisiológica rápida.</span>
+              <span>Aumento do aproveitamento de Nitrogênio pelas culturas ao longo do ciclo.</span>
             </div>
             <div class="benefit-item">
               <span class="benefit-dot">•</span>
               <span>Formulação balanceada de macro e micronutrientes com Co, Mo, Ni, Zn e Mn.</span>
             </div>
-          </div>
-
-          
-          <div class="product-guarantee anim-list">
-            <strong>Garantias: P2O5: 5% · K2O: 3,2% · Mg: 1,5% · S: 1,9% · Co: 1% · Cu: 0,1% · Mo: 10% · Mn: 2,5% · Ni: 2% · Zn: 1,5% · Solubilidade: 450 g/L.</strong>
+            </div>
           </div>
         </div>
 
-        <div class="product-visual-col anim-packshot">
-          <div class="packshot-3d-stage">
-            <img src="assets/images/products/pack_sustent.png" alt="SUSTENT" class="keynote-packshot-img">
-            <div class="volumetric-aura aura-green"></div>
-          </div>
+        <div class="product-guarantee anim-list" style="margin-top: 2vh;">
+          <strong>Garantias: P2O5: 5% · K2O: 3,2% · Mg: 1,5% · S: 1,9% · Co: 1% · Cu: 0,1% · Mo: 10% · Mn: 2,5% · Ni: 2% · Zn: 1,5% · Solubilidade: 450 g/L.</strong>
         </div>
       </div>
     </div>
@@ -1070,9 +1224,9 @@ html, body {
          SLIDE 09: NUTRIÇÃO FOLIAR (CHAPTER)
          ==================================================================== -->
     <div id="slide-9" class="slide-stage " data-slide-index="8">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-spotlight"></div>
-      <div class="slide-watermark">09</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_lab_science.jpg');"></div>
+      <div class="slide-spotlight spotlight-center"></div>
+      <div class="slide-watermark ">09</div>
 
       <div class="chapter-stage">
         <span class="chapter-badge anim-kicker">CAPÍTULO 03</span>
@@ -1082,14 +1236,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 10: COMPAT MANGANÊS (PRODUCT)
+         SLIDE 10: COMPAT MANGANÊS (PRODUCT · RIGHT LAYOUT)
          ==================================================================== -->
     <div id="slide-10" class="slide-stage " data-slide-index="9">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_lab_crystals.jpg');"></div>
       <div class="slide-spotlight spotlight-blue"></div>
-      <div class="slide-watermark">10</div>
+      <div class="slide-watermark ">10</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-right">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Quelatos de Alta Performance</span>
           <h2 class="product-title anim-title">COMPAT MANGANÊS</h2>
@@ -1099,11 +1253,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">12%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="12" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Manganês Quelatizado (Mn)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">850</span>
+              <span class="prod-metric-val"><span class="counter" data-target="850" data-suffix="">0</span></span>
               <span class="prod-metric-label">g/L · Altíssima Solubilidade</span>
             </div>
           </div>
@@ -1137,6 +1291,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_compat_manganes.png" alt="COMPAT MANGANÊS" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -1144,14 +1299,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 11: COMPAT COPPER (PRODUCT)
+         SLIDE 11: COMPAT COPPER (PRODUCT · LEFT LAYOUT)
          ==================================================================== -->
     <div id="slide-11" class="slide-stage " data-slide-index="10">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-spotlight spotlight-blue"></div>
-      <div class="slide-watermark">11</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_lab_science.jpg');"></div>
+      <div class="slide-spotlight spotlight-blue-left"></div>
+      <div class="slide-watermark watermark-left">11</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-left">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Quelatos de Alta Performance</span>
           <h2 class="product-title anim-title">COMPAT COPPER</h2>
@@ -1161,11 +1316,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">13,5%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="13.5" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Cobre Quelatizado (Cu)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">900</span>
+              <span class="prod-metric-val"><span class="counter" data-target="900" data-suffix="">0</span></span>
               <span class="prod-metric-label">g/L · Solubilidade Superior</span>
             </div>
           </div>
@@ -1199,6 +1354,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_compat_copper.png" alt="COMPAT COPPER" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -1206,14 +1362,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 12: COMPAT FERRO (PRODUCT)
+         SLIDE 12: COMPAT FERRO (PRODUCT · RIGHT LAYOUT)
          ==================================================================== -->
     <div id="slide-12" class="slide-stage " data-slide-index="11">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_lab_crystals.jpg');"></div>
       <div class="slide-spotlight spotlight-blue"></div>
-      <div class="slide-watermark">12</div>
+      <div class="slide-watermark ">12</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-right">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Quelatos de Alta Performance</span>
           <h2 class="product-title anim-title">COMPAT FERRO</h2>
@@ -1223,11 +1379,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">13%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="13" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Ferro Quelatizado (Fe)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">100%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="100" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Proteção Quelatizada</span>
             </div>
           </div>
@@ -1261,6 +1417,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_compat_ferro.png" alt="COMPAT FERRO" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -1268,14 +1425,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 13: COMPAT ZINCO (PRODUCT)
+         SLIDE 13: COMPAT ZINCO (PRODUCT · LEFT LAYOUT)
          ==================================================================== -->
     <div id="slide-13" class="slide-stage " data-slide-index="12">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-spotlight spotlight-blue"></div>
-      <div class="slide-watermark">13</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_lab_science.jpg');"></div>
+      <div class="slide-spotlight spotlight-blue-left"></div>
+      <div class="slide-watermark watermark-left">13</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-left">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Quelatos de Alta Performance</span>
           <h2 class="product-title anim-title">COMPAT ZINCO</h2>
@@ -1285,11 +1442,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">15%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="15" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Zinco Quelatizado (Zn)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">900</span>
+              <span class="prod-metric-val"><span class="counter" data-target="900" data-suffix="">0</span></span>
               <span class="prod-metric-label">g/L · Máxima Solubilidade</span>
             </div>
           </div>
@@ -1323,6 +1480,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_compat_zinco.png" alt="COMPAT ZINCO" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-blue"></div>
           </div>
         </div>
@@ -1330,14 +1488,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 14: SPEED BASE (PRODUCT)
+         SLIDE 14: SPEED BASE (PRODUCT · RIGHT LAYOUT)
          ==================================================================== -->
     <div id="slide-14" class="slide-stage " data-slide-index="13">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soja_bloom.jpg');"></div>
       <div class="slide-spotlight "></div>
-      <div class="slide-watermark">14</div>
+      <div class="slide-watermark ">14</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-right">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
           <h2 class="product-title anim-title">SPEED BASE</h2>
@@ -1347,11 +1505,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">14%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="14" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Manganês (Mn)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">5%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="5" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Zinco (Zn)</span>
             </div>
           </div>
@@ -1385,6 +1543,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_speed_base.png" alt="SPEED BASE" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-green"></div>
           </div>
         </div>
@@ -1392,14 +1551,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 15: SPEED CRESCIMENTO (PRODUCT)
+         SLIDE 15: SPEED CRESCIMENTO (PRODUCT · LEFT LAYOUT)
          ==================================================================== -->
     <div id="slide-15" class="slide-stage " data-slide-index="14">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-spotlight "></div>
-      <div class="slide-watermark">15</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_brotando.jpg');"></div>
+      <div class="slide-spotlight spotlight-left"></div>
+      <div class="slide-watermark watermark-left">15</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-left">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
           <h2 class="product-title anim-title">SPEED CRESCIMENTO</h2>
@@ -1409,11 +1568,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">7,5%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="7.5" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Zinco (Zn)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">5,5%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="5.5" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Manganês (Mn)</span>
             </div>
           </div>
@@ -1447,6 +1606,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_speed_crescimento.png" alt="SPEED CRESCIMENTO" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-green"></div>
           </div>
         </div>
@@ -1454,14 +1614,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 16: SPEED CANA (PRODUCT)
+         SLIDE 16: SPEED CANA (PRODUCT · RIGHT LAYOUT)
          ==================================================================== -->
     <div id="slide-16" class="slide-stage " data-slide-index="15">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_cana_field.jpg');"></div>
       <div class="slide-spotlight "></div>
-      <div class="slide-watermark">16</div>
+      <div class="slide-watermark ">16</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-right">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
           <h2 class="product-title anim-title">SPEED CANA</h2>
@@ -1509,6 +1669,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_speed_cana.png" alt="SPEED CANA" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-green"></div>
           </div>
         </div>
@@ -1516,14 +1677,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 17: SPEED ALGODÃO (PRODUCT)
+         SLIDE 17: SPEED ALGODÃO (PRODUCT · LEFT LAYOUT)
          ==================================================================== -->
     <div id="slide-17" class="slide-stage " data-slide-index="16">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-spotlight "></div>
-      <div class="slide-watermark">17</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_algodao_field.jpg');"></div>
+      <div class="slide-spotlight spotlight-left"></div>
+      <div class="slide-watermark watermark-left">17</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-left">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
           <h2 class="product-title anim-title">SPEED ALGODÃO</h2>
@@ -1533,11 +1694,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">10%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="10" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Zinco (Zn)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">1,5%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="1.5" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Molibdênio (Mo)</span>
             </div>
           </div>
@@ -1571,6 +1732,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_speed_algodao.png" alt="SPEED ALGODÃO" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-green"></div>
           </div>
         </div>
@@ -1578,14 +1740,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 18: SPEED COMPLETO (PRODUCT)
+         SLIDE 18: SPEED COMPLETO (PRODUCT · RIGHT LAYOUT)
          ==================================================================== -->
     <div id="slide-18" class="slide-stage " data-slide-index="17">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_pastagem.jpg');"></div>
       <div class="slide-spotlight "></div>
-      <div class="slide-watermark">18</div>
+      <div class="slide-watermark ">18</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-right">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
           <h2 class="product-title anim-title">SPEED COMPLETO</h2>
@@ -1599,7 +1761,7 @@ html, body {
               <span class="prod-metric-label">Complexo Nutricional</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">100%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="100" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Solúvel e Compatível</span>
             </div>
           </div>
@@ -1633,6 +1795,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_speed_base.png" alt="SPEED COMPLETO" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-green"></div>
           </div>
         </div>
@@ -1640,14 +1803,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 19: SPEED CITROS (PRODUCT)
+         SLIDE 19: SPEED CITROS (PRODUCT · LEFT LAYOUT)
          ==================================================================== -->
     <div id="slide-19" class="slide-stage " data-slide-index="18">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-spotlight "></div>
-      <div class="slide-watermark">19</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_citrus_orchard.jpg');"></div>
+      <div class="slide-spotlight spotlight-left"></div>
+      <div class="slide-watermark watermark-left">19</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-left">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
           <h2 class="product-title anim-title">SPEED CITROS</h2>
@@ -1657,11 +1820,11 @@ html, body {
           <div class="product-metrics-row anim-metrics">
             
             <div class="prod-metric">
-              <span class="prod-metric-val">9%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="9" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Zinco (Zn)</span>
             </div>
             <div class="prod-metric">
-              <span class="prod-metric-val">7%</span>
+              <span class="prod-metric-val"><span class="counter" data-target="7" data-suffix="%">0%</span></span>
               <span class="prod-metric-label">Manganês (Mn)</span>
             </div>
           </div>
@@ -1695,6 +1858,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_speed_citros.png" alt="SPEED CITROS" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-green"></div>
           </div>
         </div>
@@ -1705,9 +1869,9 @@ html, body {
          SLIDE 20: TECNOLOGIA DE APLICAÇÃO (CHAPTER)
          ==================================================================== -->
     <div id="slide-20" class="slide-stage " data-slide-index="19">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_field.jpg');"></div>
-      <div class="slide-spotlight"></div>
-      <div class="slide-watermark">20</div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_tractor.jpg');"></div>
+      <div class="slide-spotlight spotlight-center"></div>
+      <div class="slide-watermark ">20</div>
 
       <div class="chapter-stage">
         <span class="chapter-badge anim-kicker">CAPÍTULO 04</span>
@@ -1717,14 +1881,14 @@ html, body {
     </div>
 
     <!-- ====================================================================
-         SLIDE 21: PROPON (PRODUCT)
+         SLIDE 21: PROPON (PRODUCT · RIGHT LAYOUT)
          ==================================================================== -->
     <div id="slide-21" class="slide-stage " data-slide-index="20">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_field.jpg');"></div>
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_plane.jpg');"></div>
       <div class="slide-spotlight spotlight-gold"></div>
-      <div class="slide-watermark">21</div>
+      <div class="slide-watermark ">21</div>
 
-      <div class="product-stage">
+      <div class="product-stage layout-right">
         <div class="product-info-col">
           <span class="product-kicker anim-kicker">Adjuvantes de Alta Performance</span>
           <h2 class="product-title anim-title">PROPON</h2>
@@ -1735,11 +1899,11 @@ html, body {
             
             <div class="prod-metric">
               <span class="prod-metric-val">30 a 50</span>
-              <span class="prod-metric-label">mL / 100 L · Aplicação Terrestre</span>
+              <span class="prod-metric-label">mL / 100 L · Terrestre</span>
             </div>
             <div class="prod-metric">
               <span class="prod-metric-val">50 a 100</span>
-              <span class="prod-metric-label">mL/ha · Aplicação Aérea</span>
+              <span class="prod-metric-label">mL/ha · Aérea</span>
             </div>
           </div>
 
@@ -1772,6 +1936,7 @@ html, body {
         <div class="product-visual-col anim-packshot">
           <div class="packshot-3d-stage">
             <img src="assets/images/products/pack_propon.png" alt="PROPON" class="keynote-packshot-img">
+            <div class="specular-sheen"></div>
             <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
@@ -1781,15 +1946,25 @@ html, body {
 
   <script>
 /**
- * Nitro Colombia 2026 · Full-Screen Keynote Deck Engine (100vh)
- * Handles wheel scroll and touch swipe with inertia damping and transition lock.
+ * Nitro Colombia 2026 · Cinematic Scrubbed Deck Engine
+ * - Smooth inertia wheel dampening with lock
+ * - Specular sheen light reflection tracking
+ * - 3D Gyro perspective tilt on cursor movement
+ * - Live animated counter numbers
+ * - Ambient botanical spores canvas particle simulation
  */
 document.addEventListener('DOMContentLoaded', () => {
   const slides = Array.from(document.querySelectorAll('.slide-stage'));
   const totalSlides = slides.length;
   let currentIndex = 0;
   let isTransitioning = false;
-  const cooldownMs = 800; // Cooldown to absorb trackpad inertia
+  const cooldownMs = 800;
+
+  // Initialize Particle Canvas
+  initAmbientParticles();
+
+  // Run live counters on initial active slide
+  triggerCounters(slides[0]);
 
   function goToSlide(targetIndex) {
     if (targetIndex < 0 || targetIndex >= totalSlides || targetIndex === currentIndex) {
@@ -1801,10 +1976,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const prevSlide = slides[currentIndex];
     const nextSlide = slides[targetIndex];
-
     const movingForward = targetIndex > currentIndex;
 
-    // Transition previous slide
+    // Transition out previous slide
     prevSlide.classList.remove('active');
     if (movingForward) {
       prevSlide.classList.add('prev');
@@ -1812,13 +1986,16 @@ document.addEventListener('DOMContentLoaded', () => {
       prevSlide.classList.remove('prev');
     }
 
-    // Activate next slide
+    // Activate incoming slide
     nextSlide.classList.remove('prev');
     nextSlide.classList.add('active');
 
+    // Trigger counters on newly active slide
+    triggerCounters(nextSlide);
+
     currentIndex = targetIndex;
 
-    // Cleanup previous states and unlock after cooldown
+    // Settle state after cooldown
     setTimeout(() => {
       slides.forEach((s, idx) => {
         if (idx < currentIndex) {
@@ -1832,12 +2009,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, cooldownMs);
   }
 
-  // Wheel / Trackpad Scroll Navigation with Threshold & Lock
+  // Wheel / Trackpad Scroll Navigation with Momentum Absorption
   let wheelDeltaAccumulator = 0;
   let wheelTimeout = null;
 
   window.addEventListener('wheel', (e) => {
-    e.preventDefault(); // Stop native page scrolling completely
+    e.preventDefault();
 
     if (isTransitioning) return;
 
@@ -1846,9 +2023,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (wheelTimeout) clearTimeout(wheelTimeout);
     wheelTimeout = setTimeout(() => {
       wheelDeltaAccumulator = 0;
-    }, 200);
+    }, 180);
 
-    const threshold = 35; // Sensitive yet deliberate
+    const threshold = 35;
     if (Math.abs(wheelDeltaAccumulator) >= threshold) {
       if (wheelDeltaAccumulator > 0) {
         goToSlide(currentIndex + 1);
@@ -1861,17 +2038,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Touch Swipe for Mobile / Tablets
   let touchStartY = 0;
-  let touchEndY = 0;
-
   window.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
   }, { passive: true });
 
   window.addEventListener('touchend', (e) => {
-    touchEndY = e.changedTouches[0].clientY;
-    const diff = touchStartY - touchEndY;
+    const diff = touchStartY - e.changedTouches[0].clientY;
     const swipeThreshold = 45;
-
     if (Math.abs(diff) >= swipeThreshold && !isTransitioning) {
       if (diff > 0) {
         goToSlide(currentIndex + 1);
@@ -1881,24 +2054,122 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
-  // 3D Mouse Tilt on Current Packshot
+  // 3D Mouse Parallax & Specular Sheen Lighting
   if (!window.matchMedia('(pointer: coarse)').matches) {
     window.addEventListener('mousemove', (e) => {
       const activeSlide = slides[currentIndex];
       if (!activeSlide) return;
 
-      const packshot = activeSlide.querySelector('.packshot-3d-stage');
-      if (!packshot) return;
+      const packshotStage = activeSlide.querySelector('.packshot-3d-stage');
+      const specular = activeSlide.querySelector('.specular-sheen');
 
       const rect = activeSlide.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      const relX = (e.clientX - rect.left) / rect.width;
+      const relY = (e.clientY - rect.top) / rect.height;
 
-      const rotX = -y * 14;
-      const rotY = x * 16;
+      // Update specular sheen position on bottle
+      if (specular) {
+        specular.style.setProperty('--mouse-x', `${(relX * 100).toFixed(1)}%`);
+        specular.style.setProperty('--mouse-y', `${(relY * 100).toFixed(1)}%`);
+      }
 
-      packshot.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03, 1.03, 1.03)`;
+      // Smooth 3D tilt
+      if (packshotStage) {
+        const rotX = -(relY - 0.5) * 16;
+        const rotY = (relX - 0.5) * 18;
+        packshotStage.style.transform = `perspective(1200px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.03, 1.03, 1.03)`;
+      }
     }, { passive: true });
+  }
+
+  // Live Counting Numbers Animation
+  function triggerCounters(container) {
+    const counters = container.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const target = parseFloat(counter.getAttribute('data-target') || '0');
+      const suffix = counter.getAttribute('data-suffix') || '';
+      const isFloat = target % 1 !== 0;
+      const duration = 1200;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Easing out cubic
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = target * ease;
+
+        if (isFloat) {
+          counter.textContent = current.toFixed(1) + suffix;
+        } else {
+          counter.textContent = Math.round(current) + suffix;
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          counter.textContent = (isFloat ? target.toFixed(1) : target) + suffix;
+        }
+      }
+
+      requestAnimationFrame(update);
+    });
+  }
+
+  // Ambient Botanical Particles Simulation (Canvas)
+  function initAmbientParticles() {
+    const canvas = document.getElementById('ambientCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }, { passive: true });
+
+    const particleCount = 42;
+    const particles = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 2.2 + 0.6,
+        alpha: Math.random() * 0.5 + 0.15,
+        speedX: (Math.random() - 0.5) * 0.45,
+        speedY: -Math.random() * 0.65 - 0.2, // Drifting upwards
+        color: Math.random() > 0.4 ? 'rgba(0, 229, 117,' : 'rgba(245, 176, 65,'
+      });
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.y < -10) {
+          p.y = height + 10;
+          p.x = Math.random() * width;
+        }
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `${p.color} ${p.alpha})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = `${p.color} 0.6)`;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(render);
+    }
+
+    render();
   }
 });
   </script>
