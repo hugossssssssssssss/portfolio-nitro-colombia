@@ -2,9 +2,9 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <script>
-    // Ensure trailing slash on GitHub Pages so relative paths always resolve
+    // Ensure trailing slash on GitHub Pages so relative assets resolve properly
     if (location.pathname.endsWith('/portfolio-nitro-colombia')) {
       location.replace(location.pathname + '/' + location.search + location.hash);
     }
@@ -19,8 +19,8 @@
 
   <style>
 /* ==========================================================================
-   NITRO COLÔMBIA 2026 · ZERO-CHROME CINEMATIC SHOWCASE
-   Seamless Photography Blending, Monumental Typography, Authentic Packshots
+   NITRO COLOMBIA 2026 · CINEMATIC KEYNOTE DECK ENGINE (100VH FULLSCREEN)
+   Zero Chrome, Zero Em-Dashes, Monumental Typography, Authentic Packshots
    ========================================================================== */
 
 :root {
@@ -30,10 +30,10 @@
   --nitro-gold: #f5b041;
   --nitro-gold-glow: rgba(245, 176, 65, 0.45);
   --nitro-blue: #38bdf8;
+  --nitro-blue-glow: rgba(56, 189, 248, 0.45);
   --text-white: #ffffff;
   --text-light: #d6e5dc;
   --text-muted: #8ba396;
-  --text-dim: #4f665a;
   --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -44,93 +44,115 @@
   padding: 0;
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   background-color: var(--bg-deep);
   color: var(--text-white);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-}
-
-body {
-  min-height: 100vh;
-  background-color: var(--bg-deep);
-  color: var(--text-white);
-  overflow-x: hidden;
-  position: relative;
-}
-
-img, svg {
-  display: block;
-  max-width: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
 }
 
 /* ==========================================================================
-   SLIDE SECTION CONTAINER (FULLSCREEN 100VH)
+   PRESENTATION DECK VIEWPORT
    ========================================================================== */
-.presentation-flow {
-  width: 100%;
+.deck-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-deep);
 }
 
-.cinematic-slide {
-  position: relative;
-  min-height: 100vh;
+/* Base Slide Stage (Full 100vh canvas) */
+.slide-stage {
+  position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 4.5rem;
-  overflow: hidden;
+  padding: 4.5vh 5.5vw;
   box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(60px) scale(0.97);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.85s;
+  will-change: transform, opacity;
+  z-index: 1;
 }
 
-/* Seamless Vignette Mask: Zero Seams/Lines Between Slides */
+.slide-stage.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  z-index: 10;
+}
+
+.slide-stage.prev {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-60px) scale(0.97);
+  z-index: 2;
+}
+
+/* Cinematic Background Photography */
 .slide-bg-photo {
   position: absolute;
-  top: -10%;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: 120%;
+  height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   filter: brightness(0.24) contrast(1.15) saturate(1.2);
   z-index: 0;
   pointer-events: none;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
+  transform: scale(1.08);
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.slide-overlay-gradient {
+.slide-stage.active .slide-bg-photo {
+  transform: scale(1.0);
+}
+
+/* Soft Radial Spotlight Overlay */
+.slide-spotlight {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 65% 50%, rgba(0, 229, 117, 0.09) 0%, rgba(2, 6, 3, 0.6) 60%, rgba(2, 6, 3, 0.95) 100%);
+  background: radial-gradient(circle at 65% 50%, rgba(0, 229, 117, 0.08) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
   z-index: 1;
   pointer-events: none;
 }
 
-.overlay-gold {
-  background: radial-gradient(circle at 65% 50%, rgba(245, 176, 65, 0.12) 0%, rgba(2, 6, 3, 0.6) 60%, rgba(2, 6, 3, 0.95) 100%);
+.spotlight-gold {
+  background: radial-gradient(circle at 65% 50%, rgba(245, 176, 65, 0.1) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
 }
 
-.overlay-blue {
-  background: radial-gradient(circle at 65% 50%, rgba(56, 189, 248, 0.1) 0%, rgba(2, 6, 3, 0.6) 60%, rgba(2, 6, 3, 0.95) 100%);
+.spotlight-blue {
+  background: radial-gradient(circle at 65% 50%, rgba(56, 189, 248, 0.09) 0%, rgba(2, 6, 3, 0.55) 60%, rgba(2, 6, 3, 0.95) 100%);
 }
 
-/* Layer 2: Monumental Watermark Numbers */
+/* Monumental Background Watermark (Slide Number) */
 .slide-watermark {
   position: absolute;
   top: 50%;
-  right: 3%;
+  right: 2%;
   transform: translateY(-50%);
   font-family: var(--font-display);
-  font-size: clamp(10rem, 26vw, 30rem);
+  font-size: clamp(12rem, 30vw, 34rem);
   font-weight: 900;
   color: rgba(255, 255, 255, 0.022);
   user-select: none;
@@ -138,1368 +160,1747 @@ img, svg {
   line-height: 1;
   z-index: 1;
   letter-spacing: -0.05em;
-  will-change: transform;
-}
-
-/* Layer 3: Foreground Content Grid */
-.slide-grid {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  max-width: 1520px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
-  gap: 5.5rem;
-}
-
-/* Left Column: Pure Cinematic Typography */
-.slide-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.slide-category {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--nitro-green);
-  margin-bottom: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.slide-category::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 2px;
-  background: var(--nitro-green);
-}
-
-.slide-title-heroic {
-  font-family: var(--font-display);
-  font-size: clamp(3.2rem, 5.8vw, 5.6rem);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  background: linear-gradient(180deg, #ffffff 45%, #b6cfc2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.slide-subtitle-heroic {
-  font-family: var(--font-display);
-  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: var(--nitro-gold);
-  line-height: 1.35;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-}
-
-.slide-desc-heroic {
-  font-size: 1.15rem;
-  line-height: 1.75;
-  color: var(--text-light);
-  margin-bottom: 2.4rem;
-  max-width: 740px;
-}
-
-/* Key Metrics & Big Figures */
-.metrics-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 4rem;
-  margin-bottom: 2.2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  flex-wrap: wrap;
-}
-
-.metric-block {
-  display: flex;
-  flex-direction: column;
-}
-
-.metric-huge {
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 4.2vw, 4rem);
-  font-weight: 900;
-  line-height: 1;
-  color: var(--nitro-green);
-  letter-spacing: -0.03em;
-}
-
-.metric-huge.gold-accent {
-  color: var(--nitro-gold);
-}
-
-.metric-huge.blue-accent {
-  color: var(--nitro-blue);
-}
-
-.metric-desc {
-  font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-white);
-  margin-top: 0.4rem;
-}
-
-/* Benefits & Technical Details (No Dashes) */
-.technical-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.technical-line {
-  font-size: 0.98rem;
-  line-height: 1.65;
-  color: var(--text-light);
-}
-
-.technical-guarantee {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-top: 0.5rem;
-}
-
-.technical-guarantee strong {
-  color: var(--nitro-gold);
-}
-
-/* Right Column: Monumental Packshot with Multi-Layer Parallax */
-.slide-visual {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.packshot-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.monumental-packshot {
-  max-height: 580px;
-  width: auto;
-  filter: drop-shadow(0 35px 50px rgba(0, 0, 0, 0.95));
-  user-select: none;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.packshot-wrapper:hover .monumental-packshot {
-  transform: scale(1.05) translateY(-8px);
-}
-
-.volumetric-aura {
-  position: absolute;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 229, 117, 0.25) 0%, transparent 65%);
-  filter: blur(50px);
-  z-index: -1;
-  pointer-events: none;
-}
-
-.volumetric-aura.aura-gold {
-  background: radial-gradient(circle, rgba(245, 176, 65, 0.26) 0%, transparent 65%);
-}
-
-.volumetric-aura.aura-blue {
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.24) 0%, transparent 65%);
 }
 
 /* ==========================================================================
-   CATEGORY DIVIDER SLIDES (MONUMENTAL CHAPTERS)
-   ========================================================================= */
-.chapter-slide {
-  text-align: center;
-}
-
-.chapter-inner {
+   SLIDE 01: HEROIC COVER (CENTERED LOGO & MONUMENTAL SUSTENT)
+   ========================================================================== */
+.cover-layout {
   position: relative;
-  z-index: 3;
-  max-width: 1050px;
+  z-index: 5;
+  width: 100%;
+  max-width: 1350px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
-.chapter-number {
+.cover-logo {
+  height: 64px;
+  width: auto;
+  margin-bottom: 2vh;
+  filter: drop-shadow(0 0 25px rgba(0, 229, 117, 0.5));
+}
+
+.cover-kicker {
   font-family: var(--font-display);
-  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-size: clamp(0.85rem, 1.2vw, 1.05rem);
   font-weight: 800;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--nitro-green);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2vh;
 }
 
-.chapter-title {
+.cover-title {
   font-family: var(--font-display);
-  font-size: clamp(3.6rem, 8.5vw, 7.8rem);
+  font-size: clamp(3.2rem, 6.5vw, 6.8rem);
   font-weight: 900;
   letter-spacing: -0.035em;
-  line-height: 0.96;
+  line-height: 0.95;
   text-transform: uppercase;
-  margin-bottom: 2rem;
-  text-shadow: 0 15px 50px rgba(0, 0, 0, 0.9);
-  background: linear-gradient(180deg, #ffffff 40%, #b8d4c5 100%);
+  margin-bottom: 1vh;
+  background: linear-gradient(180deg, #ffffff 40%, #bad4c6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.chapter-subtitle {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
-  line-height: 1.65;
-  color: var(--text-light);
-  max-width: 820px;
-}
-
-/* ==========================================================================
-   SLIDE 01: HEROIC COVER (CENTERED LOGO & PROMINENT SUSTENT)
-   ========================================================================== */
-.cover-center-layout {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.cover-logo-center {
-  height: 64px;
-  width: auto;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 0 30px rgba(0, 229, 117, 0.5));
-}
-
-.cover-giant-title {
+.cover-subtitle {
   font-family: var(--font-display);
-  font-size: clamp(3.8rem, 7.5vw, 7.2rem);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 0.96;
+  font-size: clamp(1.2rem, 2.2vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--nitro-gold);
   text-transform: uppercase;
-  margin-bottom: 0.8rem;
-  background: linear-gradient(180deg, #ffffff 50%, #b6cfc2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 2.5vh;
 }
 
-.cover-giant-sub {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3vw, 2.8rem);
-  font-weight: 900;
-  letter-spacing: -0.01em;
-  color: var(--nitro-green);
-  text-transform: uppercase;
-  margin-bottom: 3rem;
-  text-shadow: 0 0 35px rgba(0, 229, 117, 0.35);
-}
-
-.cover-packshot-hero {
+.cover-packshot-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 620px;
+  height: 46vh;
+  max-height: 480px;
 }
 
-.hero-cover-img {
-  max-height: 480px;
+.cover-hero-img {
+  height: 100%;
   width: auto;
-  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.95));
+  max-height: 460px;
+  filter: drop-shadow(0 35px 60px rgba(0, 0, 0, 0.95));
+  user-select: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cover-scroll-hint {
+  margin-top: 2.5vh;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  animation: pulseHint 2.4s infinite ease-in-out;
+}
+
+.cover-scroll-hint svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--nitro-green);
+}
+
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.45; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(5px); }
 }
 
 /* ==========================================================================
-   SLIDE 02: INSTITUCIONAL IMMERSIVE STORYTELLING
+   SLIDE 02: INSTITUCIONAL (EDITORIAL NUMBERS & MANIFESTO)
    ========================================================================== */
-.institucional-layout {
+.institucional-stage {
   position: relative;
-  z-index: 3;
+  z-index: 5;
   width: 100%;
   max-width: 1480px;
   margin: 0 auto;
 }
 
 .institucional-header {
-  margin-bottom: 3.5rem;
-  text-align: left;
+  margin-bottom: 4vh;
 }
 
-.institucional-story-grid {
+.inst-category {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--nitro-green);
+  margin-bottom: 0.8vh;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.inst-category::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 2px;
+  background: var(--nitro-green);
+}
+
+.inst-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 4.8vw, 4.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  text-transform: uppercase;
+  margin-bottom: 0.8vh;
+  background: linear-gradient(180deg, #ffffff 40%, #b8d4c6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.inst-sub {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  font-weight: 800;
+  color: var(--nitro-gold);
+  text-transform: uppercase;
+}
+
+.institucional-metrics-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  margin-bottom: 3.5rem;
+  gap: 4.5rem;
+  margin-bottom: 4vh;
 }
 
-.story-card {
-  background: rgba(3, 9, 5, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 229, 117, 0.15);
-  border-radius: 18px;
-  padding: 2.5rem 2rem;
+.inst-metric-col {
   display: flex;
   flex-direction: column;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.story-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(0, 229, 117, 0.4);
-  background: rgba(3, 9, 5, 0.85);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-}
-
-.story-big-num {
+.inst-metric-num {
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: clamp(3.6rem, 5.8vw, 5.8rem);
   font-weight: 900;
   color: var(--nitro-green);
   line-height: 1;
-  margin-bottom: 0.8rem;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.6vh;
 }
 
-.story-card-title {
+.inst-metric-label {
   font-family: var(--font-display);
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--text-white);
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.2vh;
 }
 
-.story-card-text {
+.inst-metric-desc {
   font-size: 0.98rem;
   line-height: 1.7;
   color: var(--text-light);
 }
 
-.institucional-quote-banner {
+.inst-quote {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2vw, 1.7rem);
-  font-weight: 700;
-  color: var(--text-white);
-  border-left: 4px solid var(--nitro-green);
-  padding-left: 2rem;
-  line-height: 1.5;
+  font-size: clamp(1.15rem, 1.8vw, 1.6rem);
+  font-weight: 600;
   font-style: italic;
-  max-width: 1100px;
+  color: var(--text-white);
+  border-left: 3px solid var(--nitro-green);
+  padding-left: 1.8rem;
+  line-height: 1.6;
+  max-width: 1050px;
 }
 
 /* ==========================================================================
-   REVEAL STAGGER ANIMATIONS (INTERSECTION OBSERVER)
+   CHAPTER SLIDES (MONUMENTAL SECTION OPENERS)
    ========================================================================== */
-.reveal-flow {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+.chapter-stage {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.reveal-flow.in-view {
+.chapter-badge {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--nitro-green);
+  margin-bottom: 1.8vh;
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.8rem, 8.5vw, 7.8rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin-bottom: 2.2vh;
+  text-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+  background: linear-gradient(180deg, #ffffff 40%, #b8d4c5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.chapter-desc {
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  line-height: 1.65;
+  color: var(--text-light);
+  max-width: 860px;
+}
+
+/* ==========================================================================
+   PRODUCT SLIDES (KEYNOTE SPLIT-SCREEN COMPOSITION)
+   ========================================================================== */
+.product-stage {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1540px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 5vw;
+}
+
+/* Left Column: Pure Cinematic Editorial Typography */
+.product-info-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-kicker {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--nitro-green);
+  margin-bottom: 0.8vh;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.product-kicker::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 2px;
+  background: var(--nitro-green);
+}
+
+.product-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 5.5vw, 5.4rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 0.96;
+  text-transform: uppercase;
+  margin-bottom: 0.6vh;
+  background: linear-gradient(180deg, #ffffff 40%, #b8d4c5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.product-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.5vw, 1.38rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--nitro-gold);
+  line-height: 1.35;
+  text-transform: uppercase;
+  margin-bottom: 1.8vh;
+}
+
+.product-desc {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-light);
+  margin-bottom: 2.5vh;
+  max-width: 720px;
+}
+
+/* Key Metrics */
+.product-metrics-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 3.5rem;
+  margin-bottom: 2.2vh;
+  padding-bottom: 1.8vh;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+
+.prod-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.prod-metric-val {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--nitro-green);
+  letter-spacing: -0.03em;
+}
+
+.prod-metric-label {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-white);
+  margin-top: 0.4vh;
+}
+
+/* Bullet Points (Clean Emerald Dots, No Dashes) */
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+  margin-bottom: 1.6vh;
+}
+
+.benefit-item {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-light);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.benefit-dot {
+  color: var(--nitro-green);
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.product-guarantee {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.product-guarantee strong {
+  color: var(--nitro-gold);
+}
+
+/* Right Column: Monumental Packshot with Volumetric Aura */
+.product-visual-col {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64vh;
+  max-height: 640px;
+}
+
+.packshot-3d-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.keynote-packshot-img {
+  height: 100%;
+  width: auto;
+  max-height: 620px;
+  filter: drop-shadow(0 30px 55px rgba(0, 0, 0, 0.95));
+  user-select: none;
+  animation: floatPackshot 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatPackshot {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-12px); }
+}
+
+.volumetric-aura {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 229, 117, 0.22) 0%, transparent 65%);
+  filter: blur(50px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.aura-gold {
+  background: radial-gradient(circle, rgba(245, 176, 65, 0.24) 0%, transparent 65%);
+}
+
+.aura-blue {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 65%);
+}
+
+/* ==========================================================================
+   ENTRANCE STAGGER CHOREOGRAPHY (WHEN SLIDE BECOMES ACTIVE)
+   ========================================================================== */
+.slide-stage .anim-kicker,
+.slide-stage .anim-title,
+.slide-stage .anim-sub,
+.slide-stage .anim-desc,
+.slide-stage .anim-metrics,
+.slide-stage .anim-list,
+.slide-stage .anim-packshot {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-stage.active .anim-kicker {
   opacity: 1;
   transform: translateY(0);
+  transition-delay: 0.1s;
 }
 
-.reveal-flow.delay-1 {
-  transition-delay: 0.15s;
+.slide-stage.active .anim-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.18s;
+}
+
+.slide-stage.active .anim-sub {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
+
+.slide-stage.active .anim-desc {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.32s;
+}
+
+.slide-stage.active .anim-metrics {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
+.slide-stage.active .anim-list {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.48s;
+}
+
+.slide-stage.active .anim-packshot {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.22s;
 }
 
 /* ==========================================================================
-   RESPONSIVENESS
+   RESPONSIVENESS (LAPTOPS, TABLETS, PHONES)
    ========================================================================== */
-@media (max-width: 1100px) {
-  .cinematic-slide {
-    padding: 4rem 2rem;
+@media (max-height: 800px) {
+  .slide-stage {
+    padding: 3vh 4vw;
   }
-  .slide-grid {
+  .product-visual-col {
+    height: 58vh;
+  }
+  .keynote-packshot-img {
+    max-height: 520px;
+  }
+  .product-desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 1.8vh;
+  }
+  .product-metrics-row {
+    margin-bottom: 1.5vh;
+    padding-bottom: 1.2vh;
+  }
+}
+
+@media (max-width: 1080px) {
+  .product-stage {
     grid-template-columns: 1fr;
-    gap: 3.5rem;
+    gap: 3vh;
     text-align: center;
   }
-  .slide-category {
+  .product-kicker {
     justify-content: center;
   }
-  .slide-category::before {
+  .product-kicker::before {
     display: none;
   }
-  .slide-desc-heroic {
+  .product-desc {
     margin-left: auto;
     margin-right: auto;
   }
-  .metrics-row {
+  .product-metrics-row {
     justify-content: center;
   }
-  .monumental-packshot {
-    max-height: 420px;
+  .benefits-list {
+    align-items: center;
   }
-  .institucional-story-grid {
+  .product-visual-col {
+    height: 40vh;
+  }
+  .keynote-packshot-img {
+    max-height: 380px;
+  }
+  .institucional-metrics-grid {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .slide-title-heroic {
-    font-size: 2.8rem;
-  }
-  .chapter-title {
-    font-size: 3rem;
-  }
-  .monumental-packshot {
-    max-height: 320px;
-  }
-  .cover-giant-title {
-    font-size: 3rem;
+    gap: 2rem;
   }
 }
   </style>
 </head>
 <body>
 
-  <main class="presentation-flow">
+  <div class="deck-viewport" id="deckViewport">
 
     <!-- ====================================================================
-         SLIDE 01: CAPA (HEROIC CENTERED COMPOSITION)
+         SLIDE 01: CAPA (HEROIC KEYNOTE OPENER)
          ==================================================================== -->
-    <section id="slide-1" class="cinematic-slide">
+    <div id="slide-1" class="slide-stage active" data-slide-index="0">
       <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_aerial_field.jpg');"></div>
-      <div class="slide-overlay-gradient"></div>
+      <div class="slide-spotlight"></div>
       <div class="slide-watermark">01</div>
 
-      <div class="cover-center-layout reveal-flow">
-        <img src="assets/images/logo_nitro.svg" alt="Nitro Logo" class="cover-logo-center">
-        <h1 class="cover-giant-title">SOLUÇÕES NITRO</h1>
-        <h2 class="cover-giant-sub">OMBRO A OMBRO COM O PRODUTOR</h2>
+      <div class="cover-layout">
+        <img src="assets/images/logo_nitro.svg" alt="Nitro Logo" class="cover-logo anim-title">
+        <span class="cover-kicker anim-kicker">OMBRO A OMBRO COM O PRODUTOR</span>
+        <h1 class="cover-title anim-title">SOLUÇÕES NITRO</h1>
+        <h2 class="cover-subtitle anim-sub">PORTFÓLIO DE PRODUTOS · COLÔMBIA</h2>
 
-        <div class="cover-packshot-hero" data-parallax="packshot">
-          <img src="assets/images/products/pack_sustent.png" alt="Sustent Destaque Nitro" class="hero-cover-img">
+        <div class="cover-packshot-wrapper anim-packshot">
+          <img src="assets/images/products/pack_sustent.png" alt="Sustent Destaque Nitro" class="cover-hero-img">
           <div class="volumetric-aura"></div>
         </div>
+
+        <div class="cover-scroll-hint anim-desc">
+          <span>Role para explorar</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
       </div>
-    </section>
+    </div>
 
     <!-- ====================================================================
-         SLIDE 02: INSTITUCIONAL (FULL FIELD BACKGROUND & 3 STORY HIGHLIGHTS)
+         SLIDE 02: INSTITUCIONAL (MONUMENTAL METRICS & MANIFESTO)
          ==================================================================== -->
-    <section id="slide-2" class="cinematic-slide">
+    <div id="slide-2" class="slide-stage " data-slide-index="1">
       <div class="slide-bg-photo" style="background-image: url('assets/images/bg_institucional.png'); filter: brightness(0.28) contrast(1.15);"></div>
-      <div class="slide-overlay-gradient"></div>
+      <div class="slide-spotlight"></div>
       <div class="slide-watermark">02</div>
 
-      <div class="institucional-layout reveal-flow">
+      <div class="institucional-stage">
         <div class="institucional-header">
-          <span class="slide-category">Institucional</span>
-          <h2 class="slide-title-heroic">OMBRO A OMBRO COM O PRODUTOR</h2>
-          <h3 class="slide-subtitle-heroic">CIÊNCIA, INOVAÇÃO E PROXIMIDADE COM O CAMPO</h3>
+          <span class="inst-category anim-kicker">Institucional</span>
+          <h2 class="inst-title anim-title">OMBRO A OMBRO COM O PRODUTOR</h2>
+          <h3 class="inst-sub anim-sub">CIÊNCIA, INOVAÇÃO E PROXIMIDADE COM O CAMPO</h3>
         </div>
 
-        <div class="institucional-story-grid">
-          <div class="story-card">
-            <span class="story-big-num">90</span>
-            <h4 class="story-card-title">Anos de História</h4>
-            <p class="story-card-text">
-              Movidos por ciência, inovação e proximidade com o campo para transformar desafios em produtividade sustentável, com foco em resultados consistentes e soluções práticas no dia a dia da lavoura.
-            </p>
+        <div class="institucional-metrics-grid">
+          
+          <div class="inst-metric-col anim-metrics">
+            <span class="inst-metric-num">90</span>
+            <h4 class="inst-metric-label">Anos de História</h4>
+            <p class="inst-metric-desc">Movidos por ciência, tecnologia e proximidade com o campo para entregar resultados consistentes e práticos na lavoura.</p>
           </div>
-
-          <div class="story-card">
-            <span class="story-big-num">7</span>
-            <h4 class="story-card-title">Plantas Industriais</h4>
-            <p class="story-card-text">
-              Complexos industriais no Brasil, Uruguai e Estados Unidos, exportando especialidades químicas para mais de 70 países e atuando comercialmente em toda a América Latina.
-            </p>
+          <div class="inst-metric-col anim-metrics">
+            <span class="inst-metric-num">7</span>
+            <h4 class="inst-metric-label">Plantas Industriais</h4>
+            <p class="inst-metric-desc">Complexos de ponta no Brasil, Uruguai e Estados Unidos, exportando alta tecnologia química para mais de 70 países.</p>
           </div>
-
-          <div class="story-card">
-            <span class="story-big-num">100%</span>
-            <h4 class="story-card-title">Solidez & Energia</h4>
-            <p class="story-card-text">
-              Estrutura moderna, capital sólido e autossuficiência energética garantindo segurança de fornecimento, visão de longo prazo e alta performance no campo.
-            </p>
+          <div class="inst-metric-col anim-metrics">
+            <span class="inst-metric-num">100%</span>
+            <h4 class="inst-metric-label">Solidez e Energia</h4>
+            <p class="inst-metric-desc">Estrutura moderna, capital sólido e autossuficiência energética garantindo segurança total de fornecimento ao produtor.</p>
           </div>
         </div>
 
-        <blockquote class="institucional-quote-banner">
-          "Entregamos hoje o que muitos ainda veem como o futuro. Somos a Nitro. Ombro a ombro com o produtor."
-        </blockquote>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 03: DIVISOR 01 · LINHA SOLO (SEAMLESS SOIL TEXTURE)
-         ==================================================================== -->
-    <section id="slide-3" class="cinematic-slide chapter-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
-      <div class="slide-overlay-gradient"></div>
-      <div class="slide-watermark">01</div>
-
-      <div class="chapter-inner reveal-flow">
-        <span class="chapter-number">Capítulo 01</span>
-        <h2 class="chapter-title">LINHA SOLO</h2>
-        <p class="chapter-subtitle">
-          Construção de fertilidade de perfil, enxofre elementar de alta pureza e liberação gradual de sulfato contínuo ao longo do ciclo.
+        <p class="inst-quote anim-desc">
+          "Transformamos desafios em produtividade sustentável através de especialidades químicas e soluções biológicas de alto impacto."
         </p>
       </div>
-    </section>
+    </div>
 
     <!-- ====================================================================
-         SLIDE 04: MIDAS
+         SLIDE 03: LINHA SOLO (CHAPTER)
          ==================================================================== -->
-    <section id="slide-4" class="cinematic-slide">
+    <div id="slide-3" class="slide-stage " data-slide-index="2">
       <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-gold"></div>
-      <div class="slide-watermark">04</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Enxofre via solo</span>
-          <h2 class="slide-title-heroic">MIDAS</h2>
-          <h3 class="slide-subtitle-heroic">O TOQUE DE OURO QUE FALTAVA NA SUA LAVOURA</h3>
-          
-          <p class="slide-desc-heroic">
-            Fertilizante para nutrição de enxofre via solo com alta eficiência, apresentando disponibilização gradual do sulfato, atendendo a exigência crescente do nutriente ao longo do ciclo da cultura, reduzindo suas perdas e aumentando o teor do solo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge gold-accent">90%</span>
-              <span class="metric-desc">Enxofre Total (S)</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">40 a 70</span>
-              <span class="metric-desc">kg/ha · Aplicação Solo</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line">Uniformidade de aplicação, qualidade de dispersão e rendimento operacional.</p>
-            <p class="technical-line">Disponibilização do sulfato de forma gradual, reduzindo perdas e atendendo a demanda nutricional da planta.</p>
-            <p class="technical-line">Atua na formação de aminoácidos, proteínas e no processo fotossintético.</p>
-            <p class="technical-line">Nutrição de safra e safrinha em uma única aplicação. Menores gastos com frete.</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_midas.png" alt="Midas" class="monumental-packshot">
-            <div class="volumetric-aura aura-gold"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 05: MIDAS+
-         ==================================================================== -->
-    <section id="slide-5" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-gold"></div>
-      <div class="slide-watermark">05</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Enxofre via solo</span>
-          <h2 class="slide-title-heroic">MIDAS+</h2>
-          <h3 class="slide-subtitle-heroic">FORNECIMENTO DE ENXOFRE E MICRONUTRIENTES QUE SUA LAVOURA PRECISA AO LONGO DO CICLO</h3>
-          
-          <p class="slide-desc-heroic">
-            Fertilizante concentrado e de liberação gradual de Boro (B), Cobre (Cu), Manganês (Mn), Zinco (Zn) e Enxofre (S), com fornecimento contínuo ao longo do ciclo de crescimento das culturas, que irá reduzir perdas e aumentar os níveis dos nutrientes no solo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge gold-accent">S + Micro</span>
-              <span class="metric-desc">Mesmo Grânulo Homogêneo</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">40 a 120</span>
-              <span class="metric-desc">kg/ha · Aplicação Solo</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line">Fornecimento via solo de enxofre e micronutrientes para altas produtividades.</p>
-            <p class="technical-line">Alta concentração de nutrientes para sua lavoura sem segregação física.</p>
-            <p class="technical-line">Nutrição de safra e safrinha em uma única aplicação.</p>
-            <p class="technical-guarantee"><strong>Customização:</strong> Volumes acima de 500 toneladas ou conforme equipe de Produtos.</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_midas_plus.png" alt="Midas+" class="monumental-packshot">
-            <div class="volumetric-aura aura-gold"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 06: DIVISOR 02 · BIOFERTILIZANTES E FISIOLÓGICOS (CLEAN PHOTO)
-         ==================================================================== -->
-    <section id="slide-6" class="cinematic-slide chapter-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
-      <div class="slide-overlay-gradient"></div>
-      <div class="slide-watermark">02</div>
-
-      <div class="chapter-inner reveal-flow">
-        <span class="chapter-number">Capítulo 02</span>
-        <h2 class="chapter-title">BIOFERTILIZANTES E FISIOLÓGICOS</h2>
-        <p class="chapter-subtitle">
-          Ativação metabólica, enraizamento primário vigoroso, fixação biológica de nitrogênio e manutenção da área foliar ativa.
-        </p>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 07: NITRO SUPPORT
-         ==================================================================== -->
-    <section id="slide-7" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-blue"></div>
-      <div class="slide-watermark">07</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Fisiológicos</span>
-          <h2 class="slide-title-heroic">NITRO SUPPORT</h2>
-          <h3 class="slide-subtitle-heroic">O SEGURO DA SUA LAVOURA</h3>
-          
-          <p class="slide-desc-heroic">
-            É a solução completa de nutrição e fisiologia para TS e sulco de plantio de leguminosas. Promove um estabelecimento inicial vigoroso, reduz os efeitos dos estresses no início do ciclo, e estimula a nodulação e FBN com segurança e comodidade.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge blue-accent">Co + Mo</span>
-              <span class="metric-desc">Co: 0,6% · Mo: 8% · Ni: 1,2%</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">100 a 200</span>
-              <span class="metric-desc">mL / 100 kg semente (TS)</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line">Padronização de estande e estabelecimento inicial vigoroso. Prepara a planta para adversidades.</p>
-            <p class="technical-line">Maior enraizamento e aproveitamento de água e nutrientes.</p>
-            <p class="technical-line">Promove maior nodulação e eficiência da FBN.</p>
-            <p class="technical-line">Ideal para TS, apresenta compatibilidade e rápida secagem em sementes.</p>
-            <p class="technical-guarantee"><strong>Doses:</strong> Soja/Feijão: 100-150 mL/100kg · Milho: 150-200 mL · Sulco: 200-400 mL/ha.</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_nitro_support.png" alt="Nitro Support" class="monumental-packshot">
-            <div class="volumetric-aura aura-blue"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 08: SUSTENT
-         ==================================================================== -->
-    <section id="slide-8" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
-      <div class="slide-overlay-gradient"></div>
-      <div class="slide-watermark">08</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Fisiológicos</span>
-          <h2 class="slide-title-heroic">SUSTENT</h2>
-          <h3 class="slide-subtitle-heroic">O ALICERCE PARA ALTAS PRODUTIVIDADES</h3>
-          
-          <p class="slide-desc-heroic">
-            Solução que maximiza a performance fisiológica e nutricional das plantas. Atua em processos essenciais como o metabolismo do nitrogênio, FBN e fotossíntese, potencializando a produtividade.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge">450 g/L</span>
-              <span class="metric-desc">Solubilidade Elevada</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">0,2 a 0,5</span>
-              <span class="metric-desc">kg/ha · Aplicação Foliar</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line">Aumento da produtividade e aumento do aproveitamento de Nitrogênio pelas culturas.</p>
-            <p class="technical-line">Potencialização da FBN e manutenção das folhas verdes e ativas por mais tempo (efeito stay-green).</p>
-            <p class="technical-line">Comodidade e segurança de uso com defensivos químicos e biológicos.</p>
-            <p class="technical-guarantee"><strong>Garantias:</strong> P2O5: 5% - K2O: 3,2% - Mg: 1,5% - S: 1,9% - Co: 1% - Cu: 0,1% - Mo: 10% - Mn: 2,5% - Ni: 2% - Zn: 1,5%.</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_sustent.png" alt="Sustent" class="monumental-packshot">
-            <div class="volumetric-aura"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 09: DIVISOR 03 · NUTRIÇÃO FOLIAR (CLEAN DROPLETS PHOTO)
-         ==================================================================== -->
-    <section id="slide-9" class="cinematic-slide chapter-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient"></div>
+      <div class="slide-spotlight"></div>
       <div class="slide-watermark">03</div>
 
-      <div class="chapter-inner reveal-flow">
-        <span class="chapter-number">Capítulo 03</span>
-        <h2 class="chapter-title">NUTRIÇÃO FOLIAR</h2>
-        <p class="chapter-subtitle">
-          Micronutrientes 100% quelatizados com EDTA e complexos nutricionais de máxima absorção e segurança em tanque.
-        </p>
+      <div class="chapter-stage">
+        <span class="chapter-badge anim-kicker">CAPÍTULO 01</span>
+        <h2 class="chapter-title anim-title">LINHA SOLO</h2>
+        <p class="chapter-desc anim-desc">MANEJO BIOLÓGICO E FERTILIDADE INTEGRADA PARA ALTAS PRODUTIVIDADES</p>
       </div>
-    </section>
+    </div>
 
     <!-- ====================================================================
-         SLIDE 10: LINHA COMPAT (VISÃO GERAL)
+         SLIDE 04: MIDAS (PRODUCT)
          ==================================================================== -->
-    <section id="slide-10" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-blue"></div>
-      <div class="slide-watermark">10</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar - Quelatos</span>
-          <h2 class="slide-title-heroic">LINHA COMPAT</h2>
-          <h3 class="slide-subtitle-heroic">MÁXIMA SEGURANÇA E EFICIÊNCIA NA NUTRIÇÃO FOLIAR</h3>
-          
-          <p class="slide-desc-heroic">
-            A Linha Compat foi desenvolvida para proporcionar uma nutrição foliar de alto desempenho através de micronutrientes 100% quelatizados. Ela garante máxima eficiência na absorção dos nutrientes, além de segurança e estabilidade nas misturas em tanque, facilitando o manejo e otimizando os resultados no campo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge blue-accent">100%</span>
-              <span class="metric-desc">Quelatizado EDTA Puro</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">Zero</span>
-              <span class="metric-desc">Incompatibilidade Tanque</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line">Máxima eficiência na nutrição foliar com disponibilidade iônica completa.</p>
-            <p class="technical-line">Segurança e praticidade no processo de misturas de tanque complexas.</p>
-            <p class="technical-line">Não provoca incompatibilidades e danos aos bicos e equipamentos de aplicação.</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_compat_manganes.png" alt="Linha Compat" class="monumental-packshot">
-            <div class="volumetric-aura aura-blue"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 11: COMPAT MANGANÊS
-         ==================================================================== -->
-    <section id="slide-11" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-blue"></div>
-      <div class="slide-watermark">11</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar - Quelatos</span>
-          <h2 class="slide-title-heroic">COMPAT MANGANÊS</h2>
-          <h3 class="slide-subtitle-heroic">MÁXIMA SEGURANÇA E EFICIÊNCIA NA NUTRIÇÃO FOLIAR</h3>
-          
-          <p class="slide-desc-heroic">
-            A Linha Compat foi desenvolvida para proporcionar uma nutrição foliar de alto desempenho através de micronutrientes 100% quelatizados. Ela garante máxima eficiência na absorção dos nutrientes, além de segurança e estabilidade nas misturas em tanque, facilitando o manejo e otimizando os resultados no campo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge blue-accent">12% Mn</span>
-              <span class="metric-desc">Garantia Oficial</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">850 g/L</span>
-              <span class="metric-desc">Solubilidade em Água</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line"><strong>Garantias:</strong> K2O: 1% - Mn: 12%; Maior relação soluto/solvente: 20 g/L.</p>
-            <p class="technical-line"><strong>Doses e recomendações:</strong> 0,5 a 1,0 kg/ha (1 a 2 aplicações a partir de V4 em Soja, Milho, Algodão e Café).</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_compat_manganes.png" alt="Compat Manganês" class="monumental-packshot">
-            <div class="volumetric-aura aura-blue"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 12: COMPAT COPPER
-         ==================================================================== -->
-    <section id="slide-12" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-blue"></div>
-      <div class="slide-watermark">12</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar - Quelatos</span>
-          <h2 class="slide-title-heroic">COMPAT COPPER</h2>
-          <h3 class="slide-subtitle-heroic">MÁXIMA SEGURANÇA E EFICIÊNCIA NA NUTRIÇÃO FOLIAR</h3>
-          
-          <p class="slide-desc-heroic">
-            A Linha Compat foi desenvolvida para proporcionar uma nutrição foliar de alto desempenho através de micronutrientes 100% quelatizados. Ela garante máxima eficiência na absorção dos nutrientes, além de segurança e estabilidade nas misturas em tanque, facilitando o manejo e otimizando os resultados no campo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge blue-accent">13,5% Cu</span>
-              <span class="metric-desc">Garantia Oficial</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">900 g/L</span>
-              <span class="metric-desc">Solubilidade em Água</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line"><strong>Garantias:</strong> K2O: 1% - Cu: 13,5%; Maior relação soluto/solvente: 23 g/L.</p>
-            <p class="technical-line"><strong>Doses e recomendações:</strong> 100 a 500 g/ha (1 a 3 aplicações a partir do botão floral / brotações).</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_compat_copper.png" alt="Compat Copper" class="monumental-packshot">
-            <div class="volumetric-aura aura-blue"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 13: COMPAT FERRO
-         ==================================================================== -->
-    <section id="slide-13" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-blue"></div>
-      <div class="slide-watermark">13</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar - Quelatos</span>
-          <h2 class="slide-title-heroic">COMPAT FERRO</h2>
-          <h3 class="slide-subtitle-heroic">MÁXIMA SEGURANÇA E EFICIÊNCIA NA NUTRIÇÃO FOLIAR</h3>
-          
-          <p class="slide-desc-heroic">
-            A Linha Compat foi desenvolvida para proporcionar uma nutrição foliar de alto desempenho através de micronutrientes 100% quelatizados. Ela garante máxima eficiência na absorção dos nutrientes, além de segurança e estabilidade nas misturas em tanque, facilitando o manejo e otimizando os resultados no campo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge blue-accent">13% Fe</span>
-              <span class="metric-desc">Garantia Oficial</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">80 g/L</span>
-              <span class="metric-desc">Solubilidade em Água</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line"><strong>Garantias:</strong> Fe: 13%; Maior relação soluto/solvente 0,50 g/L.</p>
-            <p class="technical-line"><strong>Doses e recomendações:</strong> 100 a 500 g/ha (Durante todo o ciclo conforme sintomas de deficiência foliar).</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_compat_ferro.png" alt="Compat Ferro" class="monumental-packshot">
-            <div class="volumetric-aura aura-blue"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 14: COMPAT ZINCO
-         ==================================================================== -->
-    <section id="slide-14" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-blue"></div>
-      <div class="slide-watermark">14</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar - Quelatos</span>
-          <h2 class="slide-title-heroic">COMPAT ZINCO</h2>
-          <h3 class="slide-subtitle-heroic">MÁXIMA SEGURANÇA E EFICIÊNCIA NA NUTRIÇÃO FOLIAR</h3>
-          
-          <p class="slide-desc-heroic">
-            A Linha Compat foi desenvolvida para proporcionar uma nutrição foliar de alto desempenho através de micronutrientes 100% quelatizados. Ela garante máxima eficiência na absorção dos nutrientes, além de segurança e estabilidade nas misturas em tanque, facilitando o manejo e otimizando os resultados no campo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge blue-accent">15% Zn</span>
-              <span class="metric-desc">Garantia Oficial</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">900 g/L</span>
-              <span class="metric-desc">Solubilidade em Água</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line"><strong>Garantias:</strong> Zn: 15%; Maior relação soluto/solvente: 15,00 g/L.</p>
-            <p class="technical-line"><strong>Doses e recomendações:</strong> 0,5 a 1,5 kg/ha (Aplicações no pré-florescimento e vegetativo).</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_compat_zinco.png" alt="Compat Zinco" class="monumental-packshot">
-            <div class="volumetric-aura aura-blue"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 15: LINHA SPEED · BASE
-         ==================================================================== -->
-    <section id="slide-15" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-gold"></div>
-      <div class="slide-watermark">15</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar</span>
-          <h2 class="slide-title-heroic">SPEED BASE</h2>
-          <h3 class="slide-subtitle-heroic">SUPLEMENTAÇÃO FOLIAR PARA ALTAS PRODUTIVIDADES</h3>
-          
-          <p class="slide-desc-heroic">
-            Os produtos da Linha Speed foram desenvolvidos para atender as demandas nutricionais via folha de diversas culturas através de complexos de macro e micronutrientes, complexantes e quelatizantes. Essa combinação garante uma nutrição eficiente, equilibrada e segura, especialmente nos períodos de maior exigência das plantas, contribuindo para o máximo desempenho produtivo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge gold-accent">Multimineral</span>
-              <span class="metric-desc">K2O + Mg + S + B + Cu + Mn + Zn</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">1 a 2</span>
-              <span class="metric-desc">kg/ha · Foliar V8 a R3</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line">Balanço nutricional adequado de macro e micronutrientes.</p>
-            <p class="technical-line">Rápida eficiência de absorção de nutrientes com alta solubilidade e segurança de uso.</p>
-            <p class="technical-guarantee"><strong>Garantias:</strong> K2O: 10% - Mg: 1,8% - S: 12,4% - B: 1,5% - Cu: 0,25% - Mn: 14% - Zn: 5%; Solubilidade: 380 g/L.</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_speed_base.png" alt="Speed Base" class="monumental-packshot">
-            <div class="volumetric-aura aura-gold"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 16: SPEED CRESCIMENTO
-         ==================================================================== -->
-    <section id="slide-16" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-gold"></div>
-      <div class="slide-watermark">16</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar</span>
-          <h2 class="slide-title-heroic">SPEED CRESCIMENTO</h2>
-          <h3 class="slide-subtitle-heroic">SUPLEMENTAÇÃO FOLIAR PARA ALTAS PRODUTIVIDADES</h3>
-          
-          <p class="slide-desc-heroic">
-            Os produtos da Linha Speed foram desenvolvidos para atender as demandas nutricionais via folha de diversas culturas através de complexos de macro e micronutrientes, complexantes e quelatizantes. Essa combinação garante uma nutrição eficiente, equilibrada e segura, especialmente nos períodos de maior exigência das plantas, contribuindo para o máximo desempenho produtivo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge gold-accent">N 12%</span>
-              <span class="metric-desc">K2O: 9% · S: 7,5% · Zn: 7,5%</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">450 g/L</span>
-              <span class="metric-desc">Solubilidade em Água</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line"><strong>Garantias:</strong> N: 12% - K2O: 9% - Mg: 1% - S: 7,5% - B: 2% - Cu: 0,1% - Mn: 5,5% - Zn: 7,5%; Maior relação soluto/solvente: 30 g/L.</p>
-            <p class="technical-line"><strong>Doses:</strong> 1,0 a 3,0 kg/ha (Aplicações da pré-florada até a granação / enchimento).</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_speed_crescimento.png" alt="Speed Crescimento" class="monumental-packshot">
-            <div class="volumetric-aura aura-gold"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 17: SPEED CANA
-         ==================================================================== -->
-    <section id="slide-17" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-gold"></div>
-      <div class="slide-watermark">17</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar</span>
-          <h2 class="slide-title-heroic">SPEED CANA</h2>
-          <h3 class="slide-subtitle-heroic">SUPLEMENTAÇÃO FOLIAR PARA ALTAS PRODUTIVIDADES</h3>
-          
-          <p class="slide-desc-heroic">
-            Os produtos da Linha Speed foram desenvolvidos para atender as demandas nutricionais via folha de diversas culturas através de complexos de macro e micronutrientes, complexantes e quelatizantes. Essa combinação garante uma nutrição eficiente, equilibrada e segura, especialmente nos períodos de maior exigência das plantas, contribuindo para o máximo desempenho produtivo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge gold-accent">10% Zn</span>
-              <span class="metric-desc">Mn: 8% · B: 4% · Mo: 1,5%</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">1 a 3</span>
-              <span class="metric-desc">kg/ha · Plantio e Vegetativo</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line"><strong>Garantias:</strong> K2O: 1% - Mg: 1% - S: 10,25% - B: 4% - Cu: 0,5% - Mo: 1,5% - Mn: 8% - Zn: 10%; Solubilidade: 200 g/L.</p>
-            <p class="technical-line"><strong>Doses:</strong> 1,0 a 3,0 kg/ha (Pulverização sobre os toletes e 1 a 3 aplicações no vegetativo).</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_speed_cana.png" alt="Speed Cana" class="monumental-packshot">
-            <div class="volumetric-aura aura-gold"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 18: SPEED COMPLETO (ALGODÃO / GRÃOS)
-         ==================================================================== -->
-    <section id="slide-18" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-gold"></div>
-      <div class="slide-watermark">18</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar</span>
-          <h2 class="slide-title-heroic">SPEED COMPLETO</h2>
-          <h3 class="slide-subtitle-heroic">SUPLEMENTAÇÃO FOLIAR PARA ALTAS PRODUTIVIDADES</h3>
-          
-          <p class="slide-desc-heroic">
-            Os produtos da Linha Speed foram desenvolvidos para atender as demandas nutricionais via folha de diversas culturas através de complexos de macro e micronutrientes, complexantes e quelatizantes. Essa combinação garante uma nutrição eficiente, equilibrada e segura, especialmente nos períodos de maior exigência das plantas, contribuindo para o máximo desempenho produtivo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge gold-accent">15% P2O5</span>
-              <span class="metric-desc">N: 8% · K2O: 7% · B: 4%</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">220 g/L</span>
-              <span class="metric-desc">Solubilidade em Água</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line"><strong>Garantias:</strong> N: 8% - P2O5: 15% - K2O: 7% - Mg: 1% - S: 3,6% - B: 4% - Cu: 0,5% - Mo: 0,5% - Mn: 3% - Zn: 1,5%.</p>
-            <p class="technical-line"><strong>Doses:</strong> 1,0 a 2,5 kg/ha (Aplicações em fases reprodutivas e vegetativas de alta demanda).</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_speed_algodao.png" alt="Speed Completo" class="monumental-packshot">
-            <div class="volumetric-aura aura-gold"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 19: SPEED CITROS
-         ==================================================================== -->
-    <section id="slide-19" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
-      <div class="slide-overlay-gradient overlay-gold"></div>
-      <div class="slide-watermark">19</div>
-
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Nutrição Foliar</span>
-          <h2 class="slide-title-heroic">SPEED CITROS</h2>
-          <h3 class="slide-subtitle-heroic">SUPLEMENTAÇÃO FOLIAR PARA ALTAS PRODUTIVIDADES</h3>
-          
-          <p class="slide-desc-heroic">
-            Os produtos da Linha Speed foram desenvolvidos para atender as demandas nutricionais via folha de diversas culturas através de complexos de macro e micronutrientes, complexantes e quelatizantes. Essa combinação garante uma nutrição eficiente, equilibrada e segura, especialmente nos períodos de maior exigência das plantas, contribuindo para o máximo desempenho produtivo.
-          </p>
-
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge gold-accent">11,5% S</span>
-              <span class="metric-desc">Zn: 9% · K2O: 8% · Mn: 7%</span>
-            </div>
-            <div class="metric-block">
-              <span class="metric-huge">477 g/L</span>
-              <span class="metric-desc">Solubilidade em Água</span>
-            </div>
-          </div>
-
-          <div class="technical-details">
-            <p class="technical-line"><strong>Garantias:</strong> N: 6% - K2O: 8% - Mg: 2,5% - S: 11,5% - B: 1,6% - Mn: 7% - Mo: 0,1% - Zn: 9%; Maior relação soluto/solvente: 20 g/L.</p>
-            <p class="technical-line"><strong>Doses:</strong> 2,0 a 3,0 kg/ha (Aplicações do vegetativo até o enchimento de frutos e maturação).</p>
-          </div>
-        </div>
-
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_speed_citros.png" alt="Speed Citros" class="monumental-packshot">
-            <div class="volumetric-aura aura-gold"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         SLIDE 20: DIVISOR 04 · TECNOLOGIA DE APLICAÇÃO (CLEAN SPRAYING PHOTO)
-         ==================================================================== -->
-    <section id="slide-20" class="cinematic-slide chapter-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_field.jpg');"></div>
-      <div class="slide-overlay-gradient"></div>
+    <div id="slide-4" class="slide-stage " data-slide-index="3">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
+      <div class="slide-spotlight spotlight-gold"></div>
       <div class="slide-watermark">04</div>
 
-      <div class="chapter-inner reveal-flow">
-        <span class="chapter-number">Capítulo 04</span>
-        <h2 class="chapter-title">TECNOLOGIA DE APLICAÇÃO</h2>
-        <p class="chapter-subtitle">
-          Adjuvantes especiais para caldas complexas, controle rigoroso de deriva, antiespumante e máxima deposição sobre o alvo biológico.
-        </p>
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Nutrição de Solo</span>
+          <h2 class="product-title anim-title">MIDAS</h2>
+          <h3 class="product-subtitle anim-sub">O TOQUE DE OURO QUE FALTAVA NA SUA LAVOURA</h3>
+          <p class="product-desc anim-desc">Fertilizante para nutrição de enxofre via solo com alta eficiência, apresentando disponibilização gradual do sulfato, atendendo a exigência crescente do nutriente ao longo do ciclo da cultura, reduzindo suas perdas e aumentando o teor do solo.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">90%</span>
+              <span class="prod-metric-label">Enxofre Total (S)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">40 a 120</span>
+              <span class="prod-metric-label">kg/ha · Aplicação Solo</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Uniformidade de aplicação, qualidade de dispersão e rendimento operacional.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Formulação exclusiva que garante suprimento homogêneo durante todo o desenvolvimento vegetativo.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Menor risco de perdas por lixiviação nas camadas mais profundas do solo.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: Enxofre Total (S): 90% · Doses e recomendações de uso: Aplicação via solo: 40 a 120 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_midas.png" alt="MIDAS" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-gold"></div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
 
     <!-- ====================================================================
-         SLIDE 21: PROPON
+         SLIDE 05: MIDAS+ (PRODUCT)
          ==================================================================== -->
-    <section id="slide-21" class="cinematic-slide">
-      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_field.jpg');"></div>
-      <div class="slide-overlay-gradient"></div>
-      <div class="slide-watermark">21</div>
+    <div id="slide-5" class="slide-stage " data-slide-index="4">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_soil_macro.jpg');"></div>
+      <div class="slide-spotlight spotlight-gold"></div>
+      <div class="slide-watermark">05</div>
 
-      <div class="slide-grid">
-        <div class="slide-info reveal-flow">
-          <span class="slide-category">Adjuvantes</span>
-          <h2 class="slide-title-heroic">PROPON</h2>
-          <h3 class="slide-subtitle-heroic">MÁXIMA PRECISÃO PARA AS APLICAÇÕES</h3>
-          
-          <p class="slide-desc-heroic">
-            Adjuvante especial para aplicações de alta performance. É indicado para aplicações com caldas complexas, de menor volume de aplicação e que exigem maior controle de deriva. Sua tecnologia atua na emulsificação de calda, potencializa o efeito de defensivos e biológicos, promovendo maior precisão das aplicações.
-          </p>
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Nutrição de Solo</span>
+          <h2 class="product-title anim-title">MIDAS+</h2>
+          <h3 class="product-subtitle anim-sub">FORNECIMENTO DE ENXOFRE E MICRONUTRIENTES AO LONGO DO CICLO</h3>
+          <p class="product-desc anim-desc">Fertilizante concentrado e de liberação gradual de Boro (B), Cobre (Cu), Manganês (Mn), Zinco (Zn) e Enxofre (S), com fornecimento contínuo ao longo do ciclo de crescimento das culturas, que reduz perdas e aumenta os níveis dos nutrientes no solo.</p>
 
-          <div class="metrics-row">
-            <div class="metric-block">
-              <span class="metric-huge">30 a 50</span>
-              <span class="metric-desc">mL / 100 L · Aplicação Terrestre</span>
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">5 em 1</span>
+              <span class="prod-metric-label">Complexo Nutricional</span>
             </div>
-            <div class="metric-block">
-              <span class="metric-huge">50 a 100</span>
-              <span class="metric-desc">mL/ha · Aplicação Aérea</span>
+            <div class="prod-metric">
+              <span class="prod-metric-val">40 a 120</span>
+              <span class="prod-metric-label">kg/ha · Aplicação Solo</span>
             </div>
           </div>
 
-          <div class="technical-details">
-            <p class="technical-line">Excelente efeito redutor de deriva, com maior deposição de gotas sobre os alvos.</p>
-            <p class="technical-line">Excelente controle de espuma e maior estabilidade de calda em misturas complexas.</p>
-            <p class="technical-line">Ótimo desempenho em aplicações aéreas e terrestres.</p>
-            <p class="technical-line">Melhoria da performance de biológicos e defensivos químicos.</p>
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Fornecimento via solo de enxofre e micronutrientes para altas produtividades.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Liberação equilibrada de B, Cu, Mn, Zn e S acompanhando as fases de maior demanda.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Excelente compatibilidade e uniformidade física para misturas de fertilizantes.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: B: 0,5% · Cu: 0,5% · Mn: 1,5% · S: 75% · Zn: 2,5% · Doses: Aplicação via solo: 40 a 120 kg/ha.</strong>
           </div>
         </div>
 
-        <div class="slide-visual reveal-flow delay-1">
-          <div class="packshot-wrapper" data-parallax="packshot">
-            <img src="assets/images/products/pack_propon.png" alt="Propon" class="monumental-packshot">
-            <div class="volumetric-aura"></div>
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_midas_plus.png" alt="MIDAS+" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-gold"></div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-  </main>
+    <!-- ====================================================================
+         SLIDE 06: BIOFERTILIZANTES E FISIOLÓGICOS (CHAPTER)
+         ==================================================================== -->
+    <div id="slide-6" class="slide-stage " data-slide-index="5">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
+      <div class="slide-spotlight"></div>
+      <div class="slide-watermark">06</div>
+
+      <div class="chapter-stage">
+        <span class="chapter-badge anim-kicker">CAPÍTULO 02</span>
+        <h2 class="chapter-title anim-title">BIOFERTILIZANTES E FISIOLÓGICOS</h2>
+        <p class="chapter-desc anim-desc">ESTABELECIMENTO VIGOROSO, TOLERÂNCIA A ESTRESSES E MÁXIMA EFICIÊNCIA BIOLÓGICA</p>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 07: NITRO SUPPORT (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-7" class="slide-stage " data-slide-index="6">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
+      <div class="slide-spotlight "></div>
+      <div class="slide-watermark">07</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Biológicos e Fisiológicos</span>
+          <h2 class="product-title anim-title">NITRO SUPPORT</h2>
+          <h3 class="product-subtitle anim-sub">O SEGURO DA SUA LAVOURA DESDE O ESTABELECIMENTO</h3>
+          <p class="product-desc anim-desc">Solução completa de nutrição e fisiologia para TS e sulco de plantio de leguminosas. Promove um estabelecimento inicial vigoroso, reduz os efeitos dos estresses no início do ciclo e estimula a nodulação e FBN com total segurança e comodidade.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">8%</span>
+              <span class="prod-metric-label">Molibdênio (Mo)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">1,2%</span>
+              <span class="prod-metric-label">Níquel (Ni)</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Padronização de estande e estabelecimento inicial altamente vigoroso.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Prepara a planta para adversidades climáticas e estresses hídricos.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Maior enraizamento e aproveitamento de água e nutrientes na zona radicular.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Promove maior nodulação e eficiência da Fixação Biológica de Nitrogênio (FBN).</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: N: 1,3% · K2O: 1,4% · Co: 0,6% · Mo: 8% · Ni: 1,2% · COT: 2% · Densidade: 1,45 g/cm³ · Doses: 50 a 100 mL/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_nitro_support.png" alt="NITRO SUPPORT" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 08: SUSTENT (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-8" class="slide-stage " data-slide-index="7">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_plant_growth.jpg');"></div>
+      <div class="slide-spotlight "></div>
+      <div class="slide-watermark">08</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Biológicos e Fisiológicos</span>
+          <h2 class="product-title anim-title">SUSTENT</h2>
+          <h3 class="product-subtitle anim-sub">O ALICERCE PARA ALTAS PRODUTIVIDADES</h3>
+          <p class="product-desc anim-desc">Solução que maximiza a performance fisiológica e nutricional das plantas. Atua em processos essenciais como o metabolismo do nitrogênio, FBN e fotossíntese, potencializando a produtividade e a saúde do cultivo.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">10%</span>
+              <span class="prod-metric-label">Molibdênio (Mo)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">100 a 200</span>
+              <span class="prod-metric-label">g/ha · Aplicação Foliar</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Aumento significativo da produtividade e uniformidade de grãos e frutos.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Aumento do aproveitamento de Nitrogênio pelas culturas ao longo do ciclo.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Maior tolerância das plantas a estresses abióticos e recuperação fisiológica rápida.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Formulação balanceada de macro e micronutrientes com Co, Mo, Ni, Zn e Mn.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: P2O5: 5% · K2O: 3,2% · Mg: 1,5% · S: 1,9% · Co: 1% · Cu: 0,1% · Mo: 10% · Mn: 2,5% · Ni: 2% · Zn: 1,5% · Solubilidade: 450 g/L.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_sustent.png" alt="SUSTENT" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 09: NUTRIÇÃO FOLIAR (CHAPTER)
+         ==================================================================== -->
+    <div id="slide-9" class="slide-stage " data-slide-index="8">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight"></div>
+      <div class="slide-watermark">09</div>
+
+      <div class="chapter-stage">
+        <span class="chapter-badge anim-kicker">CAPÍTULO 03</span>
+        <h2 class="chapter-title anim-title">NUTRIÇÃO FOLIAR</h2>
+        <p class="chapter-desc anim-desc">MICRONUTRIENTES 100% QUELATIZADOS E COMPLEXOS DE ALTA ABSORÇÃO</p>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 10: COMPAT MANGANÊS (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-10" class="slide-stage " data-slide-index="9">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight spotlight-blue"></div>
+      <div class="slide-watermark">10</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Quelatos de Alta Performance</span>
+          <h2 class="product-title anim-title">COMPAT MANGANÊS</h2>
+          <h3 class="product-subtitle anim-sub">MÁXIMA SEGURANÇA E EFICIÊNCIA NA NUTRIÇÃO FOLIAR</h3>
+          <p class="product-desc anim-desc">A Linha Compat foi desenvolvida para proporcionar nutrição foliar de alto desempenho através de micronutrientes 100% quelatizados. Garante máxima eficiência na absorção dos nutrientes, além de segurança e estabilidade absoluta nas misturas em tanque.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">12%</span>
+              <span class="prod-metric-label">Manganês Quelatizado (Mn)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">850</span>
+              <span class="prod-metric-label">g/L · Altíssima Solubilidade</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Máxima eficiência e velocidade na absorção e translocação foliar de Manganês.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Segurança e praticidade no preparo de caldas e misturas de tanque complexas.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Não provoca incompatibilidades, entupimentos ou danos aos bicos de aplicação.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Atua diretamente na ativação enzimática e no processo fotossintético.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: K2O: 1% · Mn: 12% · Maior relação soluto/solvente: 20 g/L · Solubilidade: 850 g/L · Doses: 0,2 a 1,0 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_compat_manganes.png" alt="COMPAT MANGANÊS" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-blue"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 11: COMPAT COPPER (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-11" class="slide-stage " data-slide-index="10">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight spotlight-blue"></div>
+      <div class="slide-watermark">11</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Quelatos de Alta Performance</span>
+          <h2 class="product-title anim-title">COMPAT COPPER</h2>
+          <h3 class="product-subtitle anim-sub">COBRE 100% QUELATIZADO COM MÁXIMA BIODISPONIBILIDADE</h3>
+          <p class="product-desc anim-desc">Solução de Cobre quelatizado que garante absorção imediata sem causar fitotoxicidade nas folhas. A formulação confere alta estabilidade de calda e compatibilidade com defensivos agrícolas.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">13,5%</span>
+              <span class="prod-metric-label">Cobre Quelatizado (Cu)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">900</span>
+              <span class="prod-metric-label">g/L · Solubilidade Superior</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Fornecimento eficiente de Cobre para síntese de lignina e resistência vegetal.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Ausência de precipitados no tanque e compatibilidade com defensivos.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Absorção foliar homogênea sem provocar queima ou estresse tecidual.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Excelente estabilidade em ampla faixa de pH de calda.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: K2O: 1% · Cu: 13,5% · Maior relação soluto/solvente: 23 g/L · Solubilidade: 900 g/L · Doses: 0,2 a 0,5 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_compat_copper.png" alt="COMPAT COPPER" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-blue"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 12: COMPAT FERRO (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-12" class="slide-stage " data-slide-index="11">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight spotlight-blue"></div>
+      <div class="slide-watermark">12</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Quelatos de Alta Performance</span>
+          <h2 class="product-title anim-title">COMPAT FERRO</h2>
+          <h3 class="product-subtitle anim-sub">CORREÇÃO RÁPIDA E EFICIENTE DA CLOROSE FÉRRICA</h3>
+          <p class="product-desc anim-desc">Ferro 100% quelatizado com agentes de alta afinidade, garantindo que o elemento permaneça em forma solúvel e ativa, permitindo rápida assimilação celular e síntese de clorofila.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">13%</span>
+              <span class="prod-metric-label">Ferro Quelatizado (Fe)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">100%</span>
+              <span class="prod-metric-label">Proteção Quelatizada</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Reversão rápida dos sintomas de clorose e amarelecimento das folhas jovens.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Estabilidade físico-química evitando a oxidação e insolubilização do Ferro.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Compatibilidade assegurada em misturas operacionais de pulverização.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Potencializa a atividade enzimática respiratória e fotossintética.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: Fe: 13% · Maior relação soluto/solvente: 0,50 g/L · Solubilidade: 80,00 g/L · Doses: 0,3 a 1,0 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_compat_ferro.png" alt="COMPAT FERRO" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-blue"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 13: COMPAT ZINCO (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-13" class="slide-stage " data-slide-index="12">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight spotlight-blue"></div>
+      <div class="slide-watermark">13</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Quelatos de Alta Performance</span>
+          <h2 class="product-title anim-title">COMPAT ZINCO</h2>
+          <h3 class="product-subtitle anim-sub">ZINCO QUELATIZADO PARA CRESCIMENTO VEGETATIVO E VIGOR</h3>
+          <p class="product-desc anim-desc">Zinco de alta pureza e 100% quelatizado para nutrição foliar precisa. Essencial para a síntese de auxinas (fitormônios de crescimento), expansão foliar e desenvolvimento dos tecidos novos.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">15%</span>
+              <span class="prod-metric-label">Zinco Quelatizado (Zn)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">900</span>
+              <span class="prod-metric-label">g/L · Máxima Solubilidade</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Estímulo vigoroso à produção de auxinas e alongamento celular.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Rápida absorção foliar sem perdas ou fixação na superfície da cutícula.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Segurança nas misturas em tanque, sem provocar entupimento de filtros.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Excelente resposta em momentos de brotação e arranque vegetativo.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: Zn: 15% · Maior relação soluto/solvente: 15,00 g/L · Solubilidade: 900,00 g/L · Doses: 0,2 a 1,0 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_compat_zinco.png" alt="COMPAT ZINCO" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-blue"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 14: SPEED BASE (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-14" class="slide-stage " data-slide-index="13">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight "></div>
+      <div class="slide-watermark">14</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
+          <h2 class="product-title anim-title">SPEED BASE</h2>
+          <h3 class="product-subtitle anim-sub">EQUILÍBRIO NUTRICIONAL ROBUSTO PARA ALTAS EXIGÊNCIAS</h3>
+          <p class="product-desc anim-desc">Desenvolvido para atender as demandas nutricionais via folha através de complexos de macro e micronutrientes, complexantes e quelatizantes. Garante nutrição eficiente, equilibrada e segura nos períodos críticos.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">14%</span>
+              <span class="prod-metric-label">Manganês (Mn)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">5%</span>
+              <span class="prod-metric-label">Zinco (Zn)</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Balanço nutricional adequado de micronutrientes essenciais (B, Cu, Mn, Zn).</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Rápida eficiência de absorção e transporte sistêmico nos tecidos vegetais.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Alta solubilidade e segurança de uso sem risco de queima nas folhas.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Ideal para aplicações de manutenção e alavancagem de produtividade.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: B: 1,5% · Cu: 0,25% · Mn: 14% · Zn: 5% · Solubilidade: 380 g/L · Doses: 0,5 a 1,5 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_speed_base.png" alt="SPEED BASE" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 15: SPEED CRESCIMENTO (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-15" class="slide-stage " data-slide-index="14">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight "></div>
+      <div class="slide-watermark">15</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
+          <h2 class="product-title anim-title">SPEED CRESCIMENTO</h2>
+          <h3 class="product-subtitle anim-sub">SUPLEMENTAÇÃO ESTRATÉGICA PARA RÁPIDO DESENVOLVIMENTO</h3>
+          <p class="product-desc anim-desc">Fórmula balanceada com ênfase em Zinco, Boro e Manganês para impulsionar a taxa de crescimento vegetativo, ramificação e expansão da área foliar fotossinteticamente ativa.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">7,5%</span>
+              <span class="prod-metric-label">Zinco (Zn)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">5,5%</span>
+              <span class="prod-metric-label">Manganês (Mn)</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Estímulo pronunciado ao desenvolvimento vegetativo e estrutural da cultura.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Combinação sinérgica de Zinco e Boro para divisão e expansão celular rápida.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Excelente índice de absorção com rápida resposta visual no campo.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Estabilidade garantida em caldas de aplicação.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: B: 2% · Cu: 0,1% · Mn: 5,5% · Zn: 7,5% · Solubilidade: 450 g/L · Doses: 0,5 a 1,5 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_speed_crescimento.png" alt="SPEED CRESCIMENTO" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 16: SPEED CANA (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-16" class="slide-stage " data-slide-index="15">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight "></div>
+      <div class="slide-watermark">16</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
+          <h2 class="product-title anim-title">SPEED CANA</h2>
+          <h3 class="product-subtitle anim-sub">NUTRIÇÃO ESPECIALIZADA PARA MÁXIMO TCH E ATR</h3>
+          <p class="product-desc anim-desc">Complexo nutricional projetado especialmente para as altas exigências metabólicas da cana-de-açúcar, promovendo perfilhamento homogêneo, acúmulo de biomassa e síntese de sacarose.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">Fórmula</span>
+              <span class="prod-metric-label">Específica Cana</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">Alta</span>
+              <span class="prod-metric-label">Translocação Foliar</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Favorece o perfilhamento vigoroso e o fechamento precoce das entrelinhas.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Otimiza o metabolismo de carboidratos e acúmulo de açúcares no colmo.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Suplementação equilibrada em micronutrientes catalisadores de crescimento.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Excelente compatibilidade com manejos de maturação e tratos culturais.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: B: 2% · Cu: 0,1% · Mn: 5,5% · Zn: 7,5% · Solubilidade: 450 g/L · Doses: 1,0 a 2,5 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_speed_cana.png" alt="SPEED CANA" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 17: SPEED ALGODÃO (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-17" class="slide-stage " data-slide-index="16">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight "></div>
+      <div class="slide-watermark">17</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
+          <h2 class="product-title anim-title">SPEED ALGODÃO</h2>
+          <h3 class="product-subtitle anim-sub">NUTRIÇÃO DE ALTA PERFORMANCE PARA ESTRUTURA E MAÇÃS</h3>
+          <p class="product-desc anim-desc">Formulado para atender a dinâmica nutricional intensa do algodoeiro. Proporciona retenção máxima de estruturas reprodutivas, vigor e enchimento equilibrado de maçãs.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">10%</span>
+              <span class="prod-metric-label">Zinco (Zn)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">1,5%</span>
+              <span class="prod-metric-label">Molibdênio (Mo)</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Redução expressiva no abortamento de botões florais e maçãs jovens.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Alta concentração de Zinco e Molibdênio para suporte enzimático contínuo.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Melhoria na qualidade e uniformidade das fibras de algodão.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Absorção foliar acelerada com formulação totalmente solúvel.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: Cu: 0,5% · Mo: 1,5% · Mn: 8% · Zn: 10% · Solubilidade: 200 g/L · Doses: 0,5 a 1,5 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_speed_algodao.png" alt="SPEED ALGODÃO" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 18: SPEED COMPLETO (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-18" class="slide-stage " data-slide-index="17">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight "></div>
+      <div class="slide-watermark">18</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
+          <h2 class="product-title anim-title">SPEED COMPLETO</h2>
+          <h3 class="product-subtitle anim-sub">MÁXIMO SUPORTE NUTRICIONAL DE AMPLO ESPECTRO</h3>
+          <p class="product-desc anim-desc">Solução multi-nutricional que combina elementos essenciais em proporções sinérgicas para lavouras de alto investimento e recuperação ágil de cultivos sob estresse.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">Multi</span>
+              <span class="prod-metric-label">Complexo Nutricional</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">100%</span>
+              <span class="prod-metric-label">Solúvel e Compatível</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Balanço amplo e completo para nutrição foliar em fases vegetativas e reprodutivas.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Rápida recuperação pós-estresse hídrico, térmico ou fitotóxico.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Compatibilidade física e química comprovada em tanques de aplicação.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Alta eficiência metabólica com menor esforço energético da planta.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: Cu: 0,5% · Mo: 0,5% · Mn: 3% · Zn: 1,5% · Solubilidade: 220 g/L · Doses: 0,5 a 1,5 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_speed_base.png" alt="SPEED COMPLETO" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 19: SPEED CITROS (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-19" class="slide-stage " data-slide-index="18">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_foliar_macro.jpg');"></div>
+      <div class="slide-spotlight "></div>
+      <div class="slide-watermark">19</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Nutrição Foliar Speed</span>
+          <h2 class="product-title anim-title">SPEED CITROS</h2>
+          <h3 class="product-subtitle anim-sub">ALTA PERFORMANCE PARA FLORAÇÃO E QUALIDADE DE FRUTOS</h3>
+          <p class="product-desc anim-desc">Solução desenvolvida sob medida para a citricultura moderna. Nutre os fluxos vegetativos, estimula o pegamento floral e melhora o tamanho, brix e uniformidade dos frutos.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">9%</span>
+              <span class="prod-metric-label">Zinco (Zn)</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">7%</span>
+              <span class="prod-metric-label">Manganês (Mn)</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Favorece a brotação uniforme e a fixação de flores e chumbinhos.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Alto teor de Zinco, Manganês e Boro essenciais para citros de alta produtividade.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Formulação suave que respeita os tecidos sensíveis das folhas novas.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Absorção e assimilação rápida mesmo em condições de alta temperatura.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Garantias: B: 1,6% · Mn: 7% · Mo: 0,1% · Zn: 9% · Solubilidade: 477 g/L · Doses: 1,0 a 2,5 kg/ha.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_speed_citros.png" alt="SPEED CITROS" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 20: TECNOLOGIA DE APLICAÇÃO (CHAPTER)
+         ==================================================================== -->
+    <div id="slide-20" class="slide-stage " data-slide-index="19">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_field.jpg');"></div>
+      <div class="slide-spotlight"></div>
+      <div class="slide-watermark">20</div>
+
+      <div class="chapter-stage">
+        <span class="chapter-badge anim-kicker">CAPÍTULO 04</span>
+        <h2 class="chapter-title anim-title">TECNOLOGIA DE APLICAÇÃO</h2>
+        <p class="chapter-desc anim-desc">MÁXIMA EFICIÊNCIA OPERACIONAL, CONTROLE DE DERIVA E DEPOSIÇÃO NO ALVO</p>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SLIDE 21: PROPON (PRODUCT)
+         ==================================================================== -->
+    <div id="slide-21" class="slide-stage " data-slide-index="20">
+      <div class="slide-bg-photo" style="background-image: url('assets/images/backgrounds/bg_spraying_field.jpg');"></div>
+      <div class="slide-spotlight spotlight-gold"></div>
+      <div class="slide-watermark">21</div>
+
+      <div class="product-stage">
+        <div class="product-info-col">
+          <span class="product-kicker anim-kicker">Adjuvantes de Alta Performance</span>
+          <h2 class="product-title anim-title">PROPON</h2>
+          <h3 class="product-subtitle anim-sub">MÁXIMA PRECISÃO E EFICIÊNCIA PARA SUAS APLICAÇÕES</h3>
+          <p class="product-desc anim-desc">Adjuvante especial para aplicações de alta performance. Indicado para caldas complexas, menor volume de aplicação e máximo controle de deriva. Atua na emulsificação da calda, potencializa o efeito de defensivos e biológicos e garante deposição precisa sobre o alvo.</p>
+
+          <div class="product-metrics-row anim-metrics">
+            
+            <div class="prod-metric">
+              <span class="prod-metric-val">30 a 50</span>
+              <span class="prod-metric-label">mL / 100 L · Aplicação Terrestre</span>
+            </div>
+            <div class="prod-metric">
+              <span class="prod-metric-val">50 a 100</span>
+              <span class="prod-metric-label">mL/ha · Aplicação Aérea</span>
+            </div>
+          </div>
+
+          <div class="benefits-list anim-list">
+            
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Excelente efeito redutor de deriva, com maior deposição de gotas no dossel.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Controle absoluto de espuma e estabilidade de calda em misturas complexas.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Ótimo desempenho operacional em aplicações aéreas e terrestres.</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-dot">•</span>
+              <span>Melhoria expressiva na performance de defensivos químicos e bioinsumos.</span>
+            </div>
+          </div>
+
+          
+          <div class="product-guarantee anim-list">
+            <strong>Recomendações: 30 a 50 mL / 100 L (Terrestre) · 50 a 100 mL/ha (Aérea) · Densidade: 0,92 g/cm³ · Alta estabilidade.</strong>
+          </div>
+        </div>
+
+        <div class="product-visual-col anim-packshot">
+          <div class="packshot-3d-stage">
+            <img src="assets/images/products/pack_propon.png" alt="PROPON" class="keynote-packshot-img">
+            <div class="volumetric-aura aura-gold"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
 /**
- * Nitro Colombia 2026 · Cinematic Multi-Layer Scroll Parallax Engine
+ * Nitro Colombia 2026 · Full-Screen Keynote Deck Engine (100vh)
+ * Handles wheel scroll and touch swipe with inertia damping and transition lock.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  initMultiLayerParallax();
-  initIntersectionReveal();
-  init3DMouseTilt();
-});
+  const slides = Array.from(document.querySelectorAll('.slide-stage'));
+  const totalSlides = slides.length;
+  let currentIndex = 0;
+  let isTransitioning = false;
+  const cooldownMs = 800; // Cooldown to absorb trackpad inertia
 
-/* Multi-Layer Scroll Physics */
-function initMultiLayerParallax() {
-  const slides = document.querySelectorAll('.cinematic-slide');
-  let ticking = false;
-
-  const onScroll = () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const windowHeight = window.innerHeight;
-
-        slides.forEach(slide => {
-          const rect = slide.getBoundingClientRect();
-          if (rect.bottom >= -100 && rect.top <= windowHeight + 100) {
-            const progress = (rect.top + rect.height / 2 - windowHeight / 2) / (windowHeight / 2);
-
-            const bgPhoto = slide.querySelector('.slide-bg-photo');
-            const watermark = slide.querySelector('.slide-watermark');
-            const packshot = slide.querySelector('[data-parallax="packshot"]');
-
-            if (bgPhoto) {
-              bgPhoto.style.transform = `translate3d(0, ${progress * -40}px, 0) scale(1.06)`;
-            }
-
-            if (watermark) {
-              watermark.style.transform = `translateY(calc(-50% + ${progress * 55}px))`;
-            }
-
-            if (packshot && !slide.matches(':hover')) {
-              packshot.style.transform = `translate3d(0, ${progress * -70}px, 0)`;
-            }
-          }
-        });
-
-        ticking = false;
-      });
-      ticking = true;
+  function goToSlide(targetIndex) {
+    if (targetIndex < 0 || targetIndex >= totalSlides || targetIndex === currentIndex) {
+      return;
     }
-  };
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
+    if (isTransitioning) return;
+    isTransitioning = true;
 
-/* Scroll Entrance Reveal */
-function initIntersectionReveal() {
-  const reveals = document.querySelectorAll('.reveal-flow');
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.15
-  });
+    const prevSlide = slides[currentIndex];
+    const nextSlide = slides[targetIndex];
 
-  reveals.forEach(el => observer.observe(el));
-}
+    const movingForward = targetIndex > currentIndex;
 
-/* 3D Mouse Tilt on Packshot */
-function init3DMouseTilt() {
-  if (window.matchMedia('(pointer: coarse)').matches) return;
+    // Transition previous slide
+    prevSlide.classList.remove('active');
+    if (movingForward) {
+      prevSlide.classList.add('prev');
+    } else {
+      prevSlide.classList.remove('prev');
+    }
 
-  const slides = document.querySelectorAll('.cinematic-slide');
+    // Activate next slide
+    nextSlide.classList.remove('prev');
+    nextSlide.classList.add('active');
 
-  slides.forEach(slide => {
-    const packshotWrap = slide.querySelector('[data-parallax="packshot"]');
-    if (!packshotWrap) return;
+    currentIndex = targetIndex;
 
-    let raf = null;
-
-    slide.addEventListener('mousemove', (e) => {
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const rect = slide.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-        const rotateX = -y * 18;
-        const rotateY = x * 20;
-
-        packshotWrap.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+    // Cleanup previous states and unlock after cooldown
+    setTimeout(() => {
+      slides.forEach((s, idx) => {
+        if (idx < currentIndex) {
+          s.classList.add('prev');
+          s.classList.remove('active');
+        } else if (idx > currentIndex) {
+          s.classList.remove('prev', 'active');
+        }
       });
-    }, { passive: true });
+      isTransitioning = false;
+    }, cooldownMs);
+  }
 
-    slide.addEventListener('mouseleave', () => {
-      if (raf) cancelAnimationFrame(raf);
-      packshotWrap.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    });
-  });
-}
+  // Wheel / Trackpad Scroll Navigation with Threshold & Lock
+  let wheelDeltaAccumulator = 0;
+  let wheelTimeout = null;
+
+  window.addEventListener('wheel', (e) => {
+    e.preventDefault(); // Stop native page scrolling completely
+
+    if (isTransitioning) return;
+
+    wheelDeltaAccumulator += e.deltaY;
+
+    if (wheelTimeout) clearTimeout(wheelTimeout);
+    wheelTimeout = setTimeout(() => {
+      wheelDeltaAccumulator = 0;
+    }, 200);
+
+    const threshold = 35; // Sensitive yet deliberate
+    if (Math.abs(wheelDeltaAccumulator) >= threshold) {
+      if (wheelDeltaAccumulator > 0) {
+        goToSlide(currentIndex + 1);
+      } else {
+        goToSlide(currentIndex - 1);
+      }
+      wheelDeltaAccumulator = 0;
+    }
+  }, { passive: false });
+
+  // Touch Swipe for Mobile / Tablets
+  let touchStartY = 0;
+  let touchEndY = 0;
+
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchend', (e) => {
+    touchEndY = e.changedTouches[0].clientY;
+    const diff = touchStartY - touchEndY;
+    const swipeThreshold = 45;
+
+    if (Math.abs(diff) >= swipeThreshold && !isTransitioning) {
+      if (diff > 0) {
+        goToSlide(currentIndex + 1);
+      } else {
+        goToSlide(currentIndex - 1);
+      }
+    }
+  }, { passive: true });
+
+  // 3D Mouse Tilt on Current Packshot
+  if (!window.matchMedia('(pointer: coarse)').matches) {
+    window.addEventListener('mousemove', (e) => {
+      const activeSlide = slides[currentIndex];
+      if (!activeSlide) return;
+
+      const packshot = activeSlide.querySelector('.packshot-3d-stage');
+      if (!packshot) return;
+
+      const rect = activeSlide.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const rotX = -y * 14;
+      const rotY = x * 16;
+
+      packshot.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03, 1.03, 1.03)`;
+    }, { passive: true });
+  }
+});
   </script>
 </body>
 </html>
